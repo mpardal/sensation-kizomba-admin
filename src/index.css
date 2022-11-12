@@ -1,0 +1,71 @@
+@import "@fontsource/alatsi/latin-400.css";
+@import "@fontsource/cagliostro/latin-400.css";
+@import "@fontsource/inter/latin-400.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ProseMirror {
+  padding: 0 var(--chakra-space-4);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--chakra-radii-md);
+}
+
+.ProseMirror h1 {
+  font-size: var(--chakra-fontSizes-7xl);
+}
+
+.ProseMirror h2 {
+  font-size: var(--chakra-fontSizes-6xl);
+}
+
+.ProseMirror h3 {
+  font-size: var(--chakra-fontSizes-5xl);
+}
+
+.ProseMirror h4 {
+  font-size: var(--chakra-fontSizes-4xl);
+}
+
+.ProseMirror h5 {
+  font-size: var(--chakra-fontSizes-3xl);
+}
+
+.ProseMirror h6 {
+  font-size: var(--chakra-fontSizes-2xl);
+}
+
+.ProseMirror hr {
+  margin-top: var(--chakra-space-8);
+  margin-bottom: var(--chakra-space-8);
+}
+
+.ProseMirror ul {
+  padding-left: 25px;
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  padding-left: 25px;
+  list-style-type: decimal;
+}
+
+.ProseMirror pre {
+  background: var(--chakra-colors-gray-900);
+  border-radius: var(--chakra-radii-md);
+  padding-left: var(--chakra-space-4);
+  padding-right: var(--chakra-space-4);
+  padding-top: var(--chakra-space-2);
+  padding-bottom: var(--chakra-space-2);
+  margin-top: var(--chakra-space-4);
+  margin-bottom: var(--chakra-space-4);
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid var(--chakra-colors-gray-600);
+  padding-left: var(--chakra-space-4);
+  margin-top: var(--chakra-space-4);
+  margin-bottom: var(--chakra-space-4);
+}
