@@ -3,9 +3,11 @@ import { Color } from '@tiptap/extension-color'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Underline } from '@tiptap/extension-underline'
 import { TextAlign } from '@tiptap/extension-text-align'
+import { Image } from '@tiptap/extension-image'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import EventEditorBlockActions from './event-editor-block-actions'
+import EventEditorImageAction from './event-editor-image-action'
 import EventEditorLineActions from './event-editor-line-actions'
 import EventEditorSelectNodeAction from './event-editor-select-node-action'
 import EventEditorTextAlignActions from './event-editor-text-align-actions'
@@ -14,6 +16,7 @@ import EventEditorTextStyleActions from './event-editor-text-style-actions'
 import EventEditorUndoRedoActions from './event-editor-undo-redo-actions'
 
 function EventEditor({ id, name }: { id: string; name: string }) {
+  // TODO: faire l'ajout d'images, gérer la taille d'images, gérer les liens
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -21,8 +24,9 @@ function EventEditor({ id, name }: { id: string; name: string }) {
       TextStyle,
       Color,
       TextAlign.configure({
-        types: ['heading', 'paragraph'],
+        types: ['heading', 'paragraph', 'image'],
       }),
+      Image,
     ],
     content: '<h1>Hello World! 🌍</h1>',
   })
@@ -30,28 +34,29 @@ function EventEditor({ id, name }: { id: string; name: string }) {
   return (
     <Stack direction="column">
       <Wrap spacing={4}>
-        <WrapItem>
+        <WrapItem py={1}>
           <HStack>
             <EventEditorUndoRedoActions editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem>
+        <WrapItem py={1}>
           <HStack>
             <EventEditorSelectNodeAction editor={editor} />
             <EventEditorTextStyleActions editor={editor} />
+            <EventEditorImageAction editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem>
+        <WrapItem py={1}>
           <HStack>
             <EventEditorTextDecorationActions editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem>
+        <WrapItem py={1}>
           <HStack>
             <EventEditorTextAlignActions editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem>
+        <WrapItem py={1}>
           <HStack>
             <EventEditorBlockActions editor={editor} />
             <EventEditorLineActions editor={editor} />

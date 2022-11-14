@@ -18,7 +18,7 @@ function EventForm({
 }>) {
   return (
     <>
-      <VStack pt={4} alignItems="stretch">
+      <VStack py={4} alignItems="stretch">
         <FormControl>
           <FormLabel htmlFor="title" aria-label="nom de l'événement">
             Nom

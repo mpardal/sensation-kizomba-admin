@@ -1,15 +1,6 @@
 import { Editor } from '@tiptap/react'
 import { useRef } from 'react'
-import {
-  ImPageBreak,
-  MdCode,
-  MdFormatColorReset,
-  MdFormatColorText,
-  MdFormatListNumbered,
-  MdFormatQuote,
-  MdHorizontalRule,
-  MdList,
-} from 'react-icons/all'
+import { MdFormatColorReset, MdFormatColorText } from 'react-icons/all'
 import { isLightColorHex } from '../../../utils/color'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
@@ -29,6 +20,7 @@ function EventEditorTextStyleActions({ editor }: { editor: Editor | null }) {
             editor?.chain().focus().setColor(evt.currentTarget.value).run()
           }}
           value={currentColor}
+          tabIndex={-1}
         />
         <EventEditorActionIconButton
           onClick={() => {
@@ -48,13 +40,6 @@ function EventEditorTextStyleActions({ editor }: { editor: Editor | null }) {
         }}
         aria-label="réinitialiser la couleur"
         icon={<MdFormatColorReset />}
-      />
-      <EventEditorActionIconButton
-        onClick={() => {
-          editor?.chain().focus().setHardBreak().run()
-        }}
-        aria-label="saut de ligne"
-        icon={<ImPageBreak />}
       />
     </>
   )

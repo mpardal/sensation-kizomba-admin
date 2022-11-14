@@ -69,3 +69,7 @@
   margin-top: var(--chakra-space-4);
   margin-bottom: var(--chakra-space-4);
 }
+
+.ProseMirror .ProseMirror-selectednode {
+  border: 1px solid var(--chakra-colors-gray-600);
+}
