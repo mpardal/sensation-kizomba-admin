@@ -8,4 +8,5 @@ export type AppEvent = {
   teacher: string
   type: AppEventType
   date: AppEventDate
+  description: string
 }

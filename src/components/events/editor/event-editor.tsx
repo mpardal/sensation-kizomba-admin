@@ -15,8 +15,16 @@ import EventEditorTextDecorationActions from './event-editor-text-decoration-act
 import EventEditorTextStyleActions from './event-editor-text-style-actions'
 import EventEditorUndoRedoActions from './event-editor-undo-redo-actions'
 
-function EventEditor({ id, name }: { id: string; name: string }) {
-  // TODO: faire l'ajout d'images, gérer la taille d'images, gérer les liens
+function EventEditor({
+  id,
+  name,
+  onChange,
+}: {
+  id: string
+  name: string
+  onChange: (value: string) => void
+}) {
+  // TODO: gérer la taille d'images, gérer les liens
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -28,7 +36,10 @@ function EventEditor({ id, name }: { id: string; name: string }) {
       }),
       Image,
     ],
-    content: '<h1>Hello World! 🌍</h1>',
+    content: '',
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML())
+    },
   })
 
   return (

@@ -24,6 +24,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.2.0
   autoprefixer: ^10.4.13
   classnames: ^2.3.2
+  dayjs: ^1.11.6
   firebase: ^9.13.0
   formik: ^2.2.9
   framer-motion: ^7.6.5
@@ -59,6 +60,7 @@ dependencies:
   '@tiptap/react': 2.0.0-beta.202_biqbaboplfbrettd7655fr4n2y
   '@tiptap/starter-kit': 2.0.0-beta.202
   classnames: 2.3.2
+  dayjs: 1.11.6
   firebase: 9.13.0
   formik: 2.2.9_react@18.2.0
   framer-motion: 7.6.5_biqbaboplfbrettd7655fr4n2y
@@ -3050,6 +3052,10 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+
+  /dayjs/1.11.6:
+    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

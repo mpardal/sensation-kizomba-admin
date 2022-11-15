@@ -1,28 +1,43 @@
-import { FormControl, FormLabel, HStack, Input, Select, Textarea, VStack } from '@chakra-ui/react'
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  HStack,
+  Input,
+  Select,
+  Textarea,
+  VStack,
+} from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { PropsWithChildren, useEffect } from 'react'
 import { EventFormZodValues } from '../../utils/form/event-form-zod'
 import EventEditor from './editor/event-editor'
 
-type UseFormikResult = ReturnType<typeof useFormik<EventFormZodValues>>
+type UseFormikResult = ReturnType<
+  typeof useFormik<
+    Omit<EventFormZodValues, 'dateFrom' | 'dateTo'> & { dateFrom: string; dateTo: string }
+  >
+>
 
 function EventForm({
   handleBlur,
   handleChange,
   values,
   setFieldValue,
+  errors,
   children,
 }: PropsWithChildren<{
   handleChange: UseFormikResult['handleChange']
   handleBlur: UseFormikResult['handleBlur']
   values: UseFormikResult['values']
   setFieldValue: UseFormikResult['setFieldValue']
+  errors: UseFormikResult['errors']
 }>) {
   useEffect(() => {
-    if (values.dateTo !== '') {
+    if (values.dateTo !== undefined) {
       setFieldValue('type', 'once')
     }
-  }, [values.dateTo])
+  }, [])
 
   useEffect(() => {
     if (values.dateFrom !== '') {
@@ -37,7 +52,7 @@ function EventForm({
         setFieldValue('dateTo', '')
       }
     }
-  }, [values.dateFrom])
+  }, [])
 
   return (
     <>
@@ -54,9 +69,10 @@ function EventForm({
             onBlur={handleBlur}
             value={values.title}
           />
+          {errors.title && <FormHelperText color="red.500">{errors.title}</FormHelperText>}
         </FormControl>
 
-        <HStack>
+        <HStack alignItems="stretch">
           <FormControl>
             <FormLabel htmlFor="dateFrom" aria-label="date de début de l'événement">
               Date de début
@@ -69,6 +85,7 @@ function EventForm({
               onBlur={handleBlur}
               value={values.dateFrom}
             />
+            {errors.dateFrom && <FormHelperText color="red.500">{errors.dateFrom}</FormHelperText>}
           </FormControl>
 
           <FormControl>
@@ -84,6 +101,7 @@ function EventForm({
               value={values.dateTo}
               min={values.dateFrom}
             />
+            {errors.dateTo && <FormHelperText color="red.500">{errors.dateTo}</FormHelperText>}
           </FormControl>
         </HStack>
 
@@ -99,6 +117,7 @@ function EventForm({
             onBlur={handleBlur}
             value={values.teacher}
           />
+          {errors.teacher && <FormHelperText color="red.500">{errors.teacher}</FormHelperText>}
         </FormControl>
 
         <FormControl>
@@ -123,6 +142,7 @@ function EventForm({
             <option value="yearly">Tous les ans</option>
             <option value="other">Autre</option>
           </Select>
+          {errors.type && <FormHelperText color="red.500">{errors.type}</FormHelperText>}
         </FormControl>
 
         <FormControl>
@@ -137,6 +157,7 @@ function EventForm({
             onBlur={handleBlur}
             value={values.address}
           />
+          {errors.address && <FormHelperText color="red.500">{errors.address}</FormHelperText>}
         </FormControl>
 
         <FormControl>
@@ -151,13 +172,21 @@ function EventForm({
             onBlur={handleBlur}
             value={values.city}
           />
+          {errors.city && <FormHelperText color="red.500">{errors.city}</FormHelperText>}
         </FormControl>
 
         <FormControl>
           <FormLabel htmlFor="description" aria-label="description visuel de l'événement">
             Description
           </FormLabel>
-          <EventEditor id="description" name="description" />
+          {errors.description && (
+            <FormHelperText color="red.500">{errors.description}</FormHelperText>
+          )}
+          <EventEditor
+            id="description"
+            name="description"
+            onChange={(value) => setFieldValue('description', value)}
+          />
         </FormControl>
       </VStack>
 

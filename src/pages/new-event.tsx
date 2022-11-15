@@ -11,28 +11,44 @@ import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
 import EventForm from '../components/events/event-form'
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
+import { useCreateEvent } from '../hooks/use-create-event'
 import { EventFormZod, EventFormZodValues } from '../utils/form/event-form-zod'
 import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
 
 function NewEventPage() {
-  const { values, handleSubmit, handleBlur, handleChange, isValid, isSubmitting, setFieldValue } =
-    useFormik<EventFormZodValues>({
-      initialValues: {
-        title: '',
-        teacher: '',
-        type: 'once',
-        dateFrom: '',
-        dateTo: '',
-        address: '',
-        city: '',
-        description: '',
-      },
-      validateOnMount: true,
-      validationSchema: toFormikValidationSchema(EventFormZod),
-      onSubmit: (values) => {
-        console.log(values)
-      },
-    })
+  const createEvent = useCreateEvent()
+  const {
+    values,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    isValid,
+    isSubmitting,
+    setFieldValue,
+    errors,
+  } = useFormik<
+    Omit<EventFormZodValues, 'dateFrom' | 'dateTo'> & { dateFrom: string; dateTo: string }
+  >({
+    initialValues: {
+      title: '',
+      teacher: '',
+      type: 'once',
+      dateFrom: '',
+      dateTo: '',
+      address: '',
+      city: '',
+      description: '',
+    },
+    validateOnMount: true,
+    validateOnChange: true,
+    validateOnBlur: true,
+    validationSchema: toFormikValidationSchema(EventFormZod),
+    onSubmit: async (values) => {
+      console.log(values, {})
+
+      await createEvent.mutateAsync(EventFormZod.parse(values))
+    },
+  })
 
   return (
     <Container maxW="8xl">
@@ -75,6 +91,7 @@ function NewEventPage() {
           handleChange={handleChange}
           handleBlur={handleBlur}
           values={values}
+          errors={errors}
           setFieldValue={setFieldValue}
         />
       </form>
