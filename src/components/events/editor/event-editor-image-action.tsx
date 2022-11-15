@@ -99,7 +99,7 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
   )
   const queryClient = useQueryClient()
   const eventsImages = useGetImages({
-    enabled: currentAccordionIndex === 1,
+    enabled: currentAccordionIndex === 1 && isChoosingImage,
   })
   const uploadImage = useUploadImage({
     onSuccess: async (data) => {
