@@ -4,15 +4,17 @@ import Aside from './aside'
 import Header from './header'
 
 function Main() {
-  return <div>
-    <Header />
-    <div className="flex">
-      <Aside />
-      <Box as="main" flexGrow={1} overflowX="auto">
-        <Outlet />
+  return (
+    <div>
+      <Header />
+      <Box as="section" display="flex">
+        <Aside />
+        <Box as="main" flexGrow={1} overflowX="auto">
+          <Outlet />
+        </Box>
       </Box>
     </div>
-  </div>
+  )
 }
 
 export default Main

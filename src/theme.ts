@@ -32,8 +32,8 @@ export const theme = extendTheme(
         700: '#1f2733',
         800: '#1a202c',
         900: '#171923',
-      }
-    }
+      },
+    },
   },
   withDefaultColorScheme({ colorScheme: 'orange' })
 )
