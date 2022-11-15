@@ -9,12 +9,14 @@ export function EventEditorSelectMenuItem({
   attributes = {},
   bg,
   onClick,
+  disabled = false,
   ...props
 }: PropsWithChildren<
   {
     editor: Editor | null
     type: string
     attributes?: Record<string, number>
+    disabled?: boolean
   } & Omit<MenuItemProps, 'color' | 'bgColor' | 'type'>
 >) {
   const isActive = editor?.isActive(type, attributes)
@@ -30,6 +32,8 @@ export function EventEditorSelectMenuItem({
           editor?.chain().focus().setNode(type, attributes).run()
         }
       }}
+      pointerEvents={disabled ? 'none' : undefined}
+      aria-disabled={disabled}
       {...props}
     >
       {children}

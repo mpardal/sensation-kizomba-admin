@@ -13,11 +13,22 @@ import {
   ModalOverlay,
   Progress,
   Text,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  CircularProgress,
+  SimpleGrid,
+  AspectRatio,
 } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { Editor } from '@tiptap/react'
 import { getDownloadURL } from 'firebase/storage'
 import { Reducer, useEffect, useReducer, useRef, useState } from 'react'
 import { MdImage } from 'react-icons/all'
+import { useGetImages } from '../../../hooks/use-get-images'
 import { useUploadImage } from '../../../hooks/use-upload-image'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
@@ -26,34 +37,34 @@ type ImageReducerState = {
   image: string
   loading: boolean
   progress: number
-  toLarge: boolean
+  tooLarge: boolean
 }
 
 type ImageReducerAction =
-  | { type: 'loadFile'; payload: File }
+  | { type: 'load'; payload: File }
   | { type: 'image'; payload: string }
   | { type: 'reset' }
   | { type: 'progress'; payload: number }
 
 const imageReducer: Reducer<ImageReducerState, ImageReducerAction> = (state, action) => {
   switch (action.type) {
-    case 'loadFile':
+    case 'load':
       if (action.payload.size < 5 * 1024 * 1024) {
         return {
           ...state,
           loadedFile: action.payload,
-          toLarge: false,
+          tooLarge: false,
         }
       }
 
-      return { ...state, image: '', toLarge: true }
+      return { ...state, image: '', tooLarge: true }
     case 'image':
       return {
         ...state,
         image: action.payload,
         loading: false,
         progress: 0,
-        toLarge: false,
+        tooLarge: false,
       }
     case 'reset':
       return {
@@ -62,7 +73,7 @@ const imageReducer: Reducer<ImageReducerState, ImageReducerAction> = (state, act
         image: '',
         loading: false,
         progress: 0,
-        toLarge: false,
+        tooLarge: false,
         isUploading: false,
       }
     case 'progress':
@@ -74,17 +85,22 @@ const imageReducer: Reducer<ImageReducerState, ImageReducerAction> = (state, act
 
 function EventEditorImageAction({ editor }: { editor: Editor | null }) {
   const inputFileRef = useRef<HTMLInputElement>(null)
+  const [currentAccordionIndex, setCurrentAccordionIndex] = useState(1)
   const [isChoosingImage, setChoosingImage] = useState(false)
-  const [{ loadedFile, image, loading: loadingImage, progress, toLarge }, dispatch] = useReducer(
+  const [{ loadedFile, image, loading: loadingImage, progress, tooLarge }, dispatch] = useReducer(
     imageReducer,
     {
       image: '',
       loading: false,
       loadedFile: undefined,
       progress: 0,
-      toLarge: false,
+      tooLarge: false,
     }
   )
+  const queryClient = useQueryClient()
+  const eventsImages = useGetImages({
+    enabled: currentAccordionIndex === 1,
+  })
   const uploadImage = useUploadImage({
     onSuccess: async (data) => {
       console.log(data)
@@ -95,6 +111,7 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
         .focus()
         .setImage({ src: await getDownloadURL(data.ref) })
         .run()
+      editor?.chain().focus().setHardBreak().run()
     },
     onProgress: (snapshot) => {
       dispatch({
@@ -129,9 +146,18 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
 
   const onClose = () => {
     if (!isUploading) {
+      queryClient.invalidateQueries(['images'])
       setChoosingImage(false)
       dispatch({ type: 'reset' })
     }
+  }
+
+  const handleChangeAccordion = (index: number) => {
+    if (index === 1) {
+      void eventsImages.refetch()
+    }
+
+    setCurrentAccordionIndex(index)
   }
 
   return (
@@ -150,48 +176,103 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
           <ModalCloseButton disabled={isUploading} />
 
           <ModalBody>
-            <FormControl isRequired>
-              <input
-                ref={inputFileRef}
-                id="event-image"
-                name="url"
-                type="file"
-                hidden
-                onChange={(evt) => {
-                  const file = evt.currentTarget.files?.item(0)
+            <Accordion defaultIndex={1} onChange={handleChangeAccordion}>
+              <AccordionItem>
+                <h3>
+                  <AccordionButton px={0} py={4}>
+                    <Text flex={1} textAlign="left">
+                      Nouvelle image
+                    </Text>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h3>
+                <AccordionPanel px={0}>
+                  <FormControl isRequired>
+                    <input
+                      ref={inputFileRef}
+                      id="event-image"
+                      name="url"
+                      type="file"
+                      hidden
+                      onChange={(evt) => {
+                        const file = evt.currentTarget.files?.item(0)
 
-                  if (file) {
-                    dispatch({
-                      type: 'loadFile',
-                      payload: file,
-                    })
-                  } else {
-                    dispatch({
-                      type: 'reset',
-                    })
-                  }
+                        if (file) {
+                          dispatch({
+                            type: 'load',
+                            payload: file,
+                          })
+                        } else {
+                          dispatch({
+                            type: 'reset',
+                          })
+                        }
 
-                  evt.currentTarget.value = ''
-                }}
-                accept="image/*"
-              />
-              <Button
-                onClick={() => {
-                  inputFileRef.current?.click()
-                }}
-                w="full"
-                py={8}
-                colorScheme="gray"
-                disabled={isUploading}
-              >
-                Ajouter une image
-              </Button>
-              <FormHelperText>Vous pouvez ajouter une image depuis votre ordinateur</FormHelperText>
-            </FormControl>
+                        evt.currentTarget.value = ''
+                      }}
+                      accept="image/*"
+                    />
+                    <Button
+                      onClick={() => {
+                        inputFileRef.current?.click()
+                      }}
+                      w="full"
+                      py={8}
+                      colorScheme="gray"
+                      disabled={isUploading}
+                    >
+                      Ajouter une image
+                    </Button>
+                    <FormHelperText>
+                      Vous pouvez ajouter une image depuis votre ordinateur
+                    </FormHelperText>
+                  </FormControl>
 
-            {loadingImage && <Progress value={progress} size="xs" />}
-            {toLarge && <Text color="red.500">L'image ne doit pas dépasser 5 Mo</Text>}
-            {image && <Image src={image} alt="image" w="full" mt={4} />}
+                  {loadingImage && <Progress value={progress} size="xs" />}
+                  {tooLarge && <Text color="red.500">L'image ne doit pas dépasser 5 Mo</Text>}
+                  {image && <Image src={image} alt="image" w="full" mt={4} />}
+                </AccordionPanel>
+              </AccordionItem>
+              <AccordionItem>
+                <h3>
+                  <AccordionButton px={0} py={4}>
+                    <Text flex={1} textAlign="left">
+                      Image existante
+                    </Text>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h3>
+                <AccordionPanel px={0}>
+                  {eventsImages.isLoading && <CircularProgress isIndeterminate />}
+                  {eventsImages.isSuccess && eventsImages.data.items.length > 0 && (
+                    <SimpleGrid columns={4} spacing={4}>
+                      {eventsImages.data.items.map((image) => {
+                        return (
+                          <AspectRatio ratio={16 / 9} key={image.item.fullPath}>
+                            <Image
+                              src={image.url}
+                              alt="image"
+                              w="full"
+                              h="full"
+                              objectFit="cover"
+                              cursor="pointer"
+                              onClick={() => {
+                                editor?.chain().focus().setImage({ src: image.url }).run()
+                                editor?.chain().focus().joinForward().setParagraph().run()
+                                onClose()
+                              }}
+                            />
+                          </AspectRatio>
+                        )
+                      })}
+                    </SimpleGrid>
+                  )}
+                  {eventsImages.isSuccess && eventsImages.data.items.length === 0 && (
+                    <Text color="red.300">Aucune image n'a été trouvée</Text>
+                  )}
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
           </ModalBody>
 
           <ModalFooter as={HStack} spacing={4}>
@@ -199,7 +280,7 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
               Fermer
             </Button>
             <Button
-              disabled={isUploading || toLarge || !loadedFile}
+              disabled={isUploading || tooLarge || !loadedFile}
               onClick={async () => {
                 if (loadedFile) {
                   await uploadImage.mutateAsync(loadedFile)

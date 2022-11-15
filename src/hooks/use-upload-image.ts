@@ -1,7 +1,7 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query'
 import { ref, uploadBytesResumable, UploadTaskSnapshot } from 'firebase/storage'
 import { getExtension } from 'mime'
-import { SHA256 } from 'crypto-js'
+import { v4 as uuid } from 'uuid'
 import { storage } from '../config/firebase'
 
 export function useUploadImage({
@@ -11,10 +11,9 @@ export function useUploadImage({
   onProgress?: (snapshot: UploadTaskSnapshot) => void
 } = {}) {
   return useMutation({
-    mutationFn: async (file) => {
+    mutationFn: (file) => {
       const ext = getExtension(file.type)
-      const sha = SHA256(await file.text()).toString()
-      const storageRef = ref(storage, `events/${sha.toString()}${ext ? `.${ext}` : ''}`)
+      const storageRef = ref(storage, `events/${uuid()}${ext ? `.${ext}` : ''}`)
 
       const task = uploadBytesResumable(storageRef, file, { contentType: file.type })
 

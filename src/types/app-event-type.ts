@@ -1,1 +1,10 @@
-export type AppEventType = 'yearly' | 'quadrennial' | 'quarterly' | 'monthly' | 'bimonthly' | 'weekly' | 'daily' | 'other'
+export type AppEventType =
+  | 'yearly'
+  | 'quadrennial'
+  | 'quarterly'
+  | 'monthly'
+  | 'bimonthly'
+  | 'weekly'
+  | 'daily'
+  | 'once'
+  | 'other'

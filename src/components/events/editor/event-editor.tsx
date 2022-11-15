@@ -33,30 +33,30 @@ function EventEditor({ id, name }: { id: string; name: string }) {
 
   return (
     <Stack direction="column">
-      <Wrap spacing={4}>
-        <WrapItem py={1}>
+      <Wrap spacing={4} p={2}>
+        <WrapItem>
           <HStack>
             <EventEditorUndoRedoActions editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem py={1}>
+        <WrapItem>
           <HStack>
             <EventEditorSelectNodeAction editor={editor} />
             <EventEditorTextStyleActions editor={editor} />
             <EventEditorImageAction editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem py={1}>
+        <WrapItem>
           <HStack>
             <EventEditorTextDecorationActions editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem py={1}>
+        <WrapItem>
           <HStack>
             <EventEditorTextAlignActions editor={editor} />
           </HStack>
         </WrapItem>
-        <WrapItem py={1}>
+        <WrapItem>
           <HStack>
             <EventEditorBlockActions editor={editor} />
             <EventEditorLineActions editor={editor} />

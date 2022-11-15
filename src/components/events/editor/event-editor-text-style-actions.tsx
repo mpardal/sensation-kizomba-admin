@@ -21,6 +21,7 @@ function EventEditorTextStyleActions({ editor }: { editor: Editor | null }) {
           }}
           value={currentColor}
           tabIndex={-1}
+          aria-hidden="true"
         />
         <EventEditorActionIconButton
           onClick={() => {

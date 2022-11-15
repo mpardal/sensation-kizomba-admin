@@ -15,24 +15,24 @@ import { EventFormZod, EventFormZodValues } from '../utils/form/event-form-zod'
 import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
 
 function NewEventPage() {
-  const { values, handleSubmit, handleBlur, handleChange } = useFormik<
-    EventFormZodValues
-  >({
-    initialValues: {
-      title: '',
-      teacher: '',
-      type: 'daily',
-      dateFrom: '',
-      dateTo: '',
-      address: '',
-      city: '',
-      description: '',
-    },
-    validationSchema: toFormikValidationSchema(EventFormZod),
-    onSubmit: (values) => {
-      console.log(values)
-    },
-  })
+  const { values, handleSubmit, handleBlur, handleChange, isValid, isSubmitting, setFieldValue } =
+    useFormik<EventFormZodValues>({
+      initialValues: {
+        title: '',
+        teacher: '',
+        type: 'once',
+        dateFrom: '',
+        dateTo: '',
+        address: '',
+        city: '',
+        description: '',
+      },
+      validateOnMount: true,
+      validationSchema: toFormikValidationSchema(EventFormZod),
+      onSubmit: (values) => {
+        console.log(values)
+      },
+    })
 
   return (
     <Container maxW="8xl">
@@ -59,14 +59,24 @@ function NewEventPage() {
               Nouveau événement
             </Heading>
             <HStack flexGrow={1} justifyContent="flex-end">
-              <Button type="submit" size="sm">
+              <Button
+                type="submit"
+                size="sm"
+                disabled={!isValid || isSubmitting}
+                isLoading={isSubmitting}
+              >
                 Enregistrer
               </Button>
             </HStack>
           </HStack>
         </Flex>
 
-        <EventForm handleChange={handleChange} handleBlur={handleBlur} values={values} />
+        <EventForm
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          values={values}
+          setFieldValue={setFieldValue}
+        />
       </form>
     </Container>
   )
