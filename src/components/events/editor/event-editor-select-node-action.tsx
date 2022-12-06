@@ -26,7 +26,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
         <MenuButton as={Button} size="sm" rightIcon={<ChevronDownIcon />}>
           {activeNode}
         </MenuButton>
-        <MenuList>
+        <MenuList zIndex={3} maxH="30vh" overflowY="auto" minH="120px">
           <EventEditorSelectMenuItem
             editor={editor}
             type="paragraph"
@@ -38,7 +38,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
             editor={editor}
             type="heading"
             attributes={{ level: 6 }}
-            fontSize="2xl"
+            // fontSize="2xl"
             disabled={activeNode === 'Titre (h6)'}
           >
             Titre (h6)
@@ -47,7 +47,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
             editor={editor}
             type="heading"
             attributes={{ level: 5 }}
-            fontSize="3xl"
+            // fontSize="3xl"
             disabled={activeNode === 'Titre (h5)'}
           >
             Titre (h5)
@@ -56,7 +56,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
             editor={editor}
             type="heading"
             attributes={{ level: 4 }}
-            fontSize="4xl"
+            // fontSize="4xl"
             disabled={activeNode === 'Titre (h4)'}
           >
             Titre (h4)
@@ -65,7 +65,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
             editor={editor}
             type="heading"
             attributes={{ level: 3 }}
-            fontSize="5xl"
+            // fontSize="5xl"
             disabled={activeNode === 'Titre (h3)'}
           >
             Titre (h3)
@@ -74,7 +74,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
             editor={editor}
             type="heading"
             attributes={{ level: 2 }}
-            fontSize="6xl"
+            // fontSize="6xl"
             disabled={activeNode === 'Titre (h2)'}
           >
             Titre (h2)
@@ -83,7 +83,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
             editor={editor}
             type="heading"
             attributes={{ level: 1 }}
-            fontSize="7xl"
+            // fontSize="7xl"
             disabled={activeNode === 'Titre (h1)'}
           >
             Titre (h1)

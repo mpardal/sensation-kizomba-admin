@@ -1,11 +1,18 @@
+import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
+  Box,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
   HStack,
   Input,
+  InputGroup,
+  InputLeftAddon,
+  InputLeftElement,
   Select,
   Textarea,
+  Tooltip,
   VStack,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
@@ -52,136 +59,208 @@ function EventForm({
         setFieldValue('dateTo', '')
       }
     }
-  }, [])
+  }, [values.dateFrom, values.dateTo])
 
   return (
     <>
       <VStack py={4} alignItems="stretch">
         <FormControl>
-          <FormLabel htmlFor="title" aria-label="nom de l'événement">
-            Nom
-          </FormLabel>
-          <Input
-            type="text"
-            id="title"
-            name="title"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.title}
-          />
-          {errors.title && <FormHelperText color="red.500">{errors.title}</FormHelperText>}
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.title} isDisabled={!errors.title}>
+                {errors.title ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              </Tooltip>
+            </InputLeftElement>
+            <Input
+              type="text"
+              id="title"
+              name="title"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.title}
+              placeholder="Nom de l'événement"
+            />
+          </InputGroup>
         </FormControl>
 
         <HStack alignItems="stretch">
           <FormControl>
-            <FormLabel htmlFor="dateFrom" aria-label="date de début de l'événement">
-              Date de début
-            </FormLabel>
-            <Input
-              type="datetime-local"
-              id="dateFrom"
-              name="dateFrom"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.dateFrom}
-            />
-            {errors.dateFrom && <FormHelperText color="red.500">{errors.dateFrom}</FormHelperText>}
+            <InputGroup>
+              <InputLeftAddon pl={3}>
+                <Tooltip label={errors.dateFrom} isDisabled={!errors.dateFrom}>
+                  {errors.dateFrom ? (
+                    <WarningIcon color="red.500" />
+                  ) : (
+                    <CheckIcon color="green.500" />
+                  )}
+                </Tooltip>
+                <Box pl={3}>Début</Box>
+              </InputLeftAddon>
+              <Input
+                type="datetime-local"
+                id="dateFrom"
+                name="dateFrom"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.dateFrom}
+                placeholder="Date de début"
+              />
+            </InputGroup>
           </FormControl>
 
           <FormControl>
-            <FormLabel htmlFor="dateTo" aria-label="date de fin de l'événement">
-              Date de fin
-            </FormLabel>
-            <Input
-              type="datetime-local"
-              id="dateTo"
-              name="dateTo"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.dateTo}
-              min={values.dateFrom}
-            />
-            {errors.dateTo && <FormHelperText color="red.500">{errors.dateTo}</FormHelperText>}
+            <InputGroup>
+              <InputLeftAddon pl={3}>
+                <Tooltip label={errors.dateTo} isDisabled={!errors.dateTo}>
+                  {errors.dateTo ? (
+                    <WarningIcon color="red.500" />
+                  ) : (
+                    <CheckIcon color="green.500" />
+                  )}
+                </Tooltip>
+                <Box pl={3}>Fin</Box>
+              </InputLeftAddon>
+              <Input
+                type="datetime-local"
+                id="dateTo"
+                name="dateTo"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.dateTo}
+                min={values.dateFrom}
+                placeholder="Date de fin"
+              />
+            </InputGroup>
           </FormControl>
         </HStack>
 
         <FormControl>
-          <FormLabel htmlFor="teacher" aria-label="professeur(s) de l'événement">
-            Professeur
-          </FormLabel>
-          <Input
-            type="text"
-            id="teacher"
-            name="teacher"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.teacher}
-          />
-          {errors.teacher && <FormHelperText color="red.500">{errors.teacher}</FormHelperText>}
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.teacher} isDisabled={!errors.teacher}>
+                {errors.teacher ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              </Tooltip>
+            </InputLeftElement>
+            <Input
+              type="text"
+              id="teacher"
+              name="teacher"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.teacher}
+              placeholder="Professeur"
+            />
+          </InputGroup>
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="type" aria-label="type de l'événement">
-            Type
-          </FormLabel>
-          <Select
-            id="type"
-            name="type"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.type}
-            disabled={values.dateTo !== ''}
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.type} isDisabled={!errors.type}>
+                {errors.type ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              </Tooltip>
+            </InputLeftElement>
+            <Select
+              id="type"
+              name="type"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.type}
+              disabled={values.dateTo !== ''}
+              sx={{
+                paddingLeft: 10,
+              }}
+              title="récurrence de l'événement"
+            >
+              <option value="once">Une fois</option>
+              <option value="daily">Tous les jours</option>
+              <option value="weekly">Toutes les semaines</option>
+              <option value="bimonthly">Toutes les deux semaines</option>
+              <option value="monthly">Tous les mois</option>
+              <option value="quarterly">Tous les 3 mois</option>
+              <option value="quadrennial">Tous les 4 mois</option>
+              <option value="yearly">Tous les ans</option>
+              <option value="other">Autre</option>
+            </Select>
+          </InputGroup>
+        </FormControl>
+
+        <FormControl>
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.address} isDisabled={!errors.address}>
+                {errors.address ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              </Tooltip>
+            </InputLeftElement>
+            <Input
+              type="text"
+              id="address"
+              name="address"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.address}
+              placeholder="Adresse"
+            />
+          </InputGroup>
+        </FormControl>
+
+        <FormControl>
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.city} isDisabled={!errors.city}>
+                {errors.city ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              </Tooltip>
+            </InputLeftElement>
+            <Input
+              type="text"
+              id="city"
+              name="city"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.city}
+              placeholder="Ville"
+            />
+          </InputGroup>
+        </FormControl>
+
+        <FormControl>
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.weezeventUrl} isDisabled={!errors.weezeventUrl}>
+                {errors.weezeventUrl ? (
+                  <WarningIcon color="red.500" />
+                ) : (
+                  <CheckIcon color="green.500" />
+                )}
+              </Tooltip>
+            </InputLeftElement>
+            <Input
+              type="url"
+              id="weezeventUrl"
+              name="weezeventUrl"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.weezeventUrl}
+              placeholder="URL du weezevent"
+            />
+          </InputGroup>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel
+            htmlFor="description"
+            aria-label="description visuel de l'événement"
+            display="flex"
+            gap={2}
+            alignItems="center"
           >
-            <option value="once">Une fois</option>
-            <option value="daily">Tous les jours</option>
-            <option value="weekly">Toutes les semaines</option>
-            <option value="bimonthly">Toutes les deux semaines</option>
-            <option value="monthly">Tous les mois</option>
-            <option value="quarterly">Tous les 3 mois</option>
-            <option value="quadrennial">Tous les 4 mois</option>
-            <option value="yearly">Tous les ans</option>
-            <option value="other">Autre</option>
-          </Select>
-          {errors.type && <FormHelperText color="red.500">{errors.type}</FormHelperText>}
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="address" aria-label="adresse de l'événement">
-            Adresse
+            <span>Description</span>
+            {errors.description && (
+              <FormHelperText color="red.500" as="span" mt={0}>
+                {errors.description}
+              </FormHelperText>
+            )}
           </FormLabel>
-          <Input
-            type="text"
-            id="address"
-            name="address"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.address}
-          />
-          {errors.address && <FormHelperText color="red.500">{errors.address}</FormHelperText>}
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="city" aria-label="ville de l'événement">
-            Ville
-          </FormLabel>
-          <Input
-            type="text"
-            id="city"
-            name="city"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.city}
-          />
-          {errors.city && <FormHelperText color="red.500">{errors.city}</FormHelperText>}
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="description" aria-label="description visuel de l'événement">
-            Description
-          </FormLabel>
-          {errors.description && (
-            <FormHelperText color="red.500">{errors.description}</FormHelperText>
-          )}
           <EventEditor
             id="description"
             name="description"

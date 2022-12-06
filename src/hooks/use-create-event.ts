@@ -16,8 +16,6 @@ export function useCreateEvent({
 }: UseMutationOptions<DocumentReference<AppEvent>, unknown, EventFormZodValues> = {}) {
   return useMutation({
     mutationFn: async (form) => {
-      console.log(form)
-
       const date = {
         from: Timestamp.fromDate(form.dateFrom),
       } as AppEvent['date']
@@ -35,6 +33,7 @@ export function useCreateEvent({
         address: form.address,
         date,
         description: form.description,
+        weezeventUrl: form.weezeventUrl,
       })
     },
     ...options,

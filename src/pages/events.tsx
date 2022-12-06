@@ -10,6 +10,8 @@ import {
   Heading,
   HStack,
   IconButton,
+  LinkBox,
+  LinkOverlay,
   Table,
   TableContainer,
   Tbody,
@@ -79,16 +81,24 @@ function EventsPage() {
                   const data = event.data()
 
                   return (
-                    <Tr key={event.id} aria-label={data.title}>
+                    <LinkBox
+                      as={Tr}
+                      key={event.id}
+                      aria-label={data.title}
+                      //transform="scale(1)" // Hack to make `<Tr>` position relative
+                    >
                       <Td aria-label="actions sur les événements" textAlign="center">
-                        <IconButton
-                          size="xs"
-                          aria-label="éditer l'événement"
-                          role="navigation"
-                          icon={<EditIcon />}
-                          colorScheme="gray"
-                          bg="gray.600 "
-                        />
+                        <LinkOverlay to={`/events/${event.id}/edit`} as={Link}>
+                          <IconButton
+                            size="xs"
+                            as="span"
+                            aria-label="éditer l'événement"
+                            role="navigation"
+                            icon={<EditIcon />}
+                            colorScheme="gray"
+                            bg="gray.600 "
+                          />
+                        </LinkOverlay>
                       </Td>
                       <Td aria-label="nom de l'événement">{data.title}</Td>
                       <Td aria-label="date de début de l'événement">
@@ -100,7 +110,7 @@ function EventsPage() {
                           : 'N/A'}
                       </Td>
                       <Td aria-label="type d'événement">{data.type}</Td>
-                    </Tr>
+                    </LinkBox>
                   )
                 })}
               </Tbody>

@@ -56,6 +56,15 @@ export const EventFormZod = z
     description: z.string({
       required_error: 'Requis',
     }),
+    weezeventUrl: z
+      .string({
+        required_error: 'Requis',
+      })
+      .url('Url invalide')
+      .regex(/^https:\/\/my.weezevent.com\/.+/, {
+        message: 'Doit avoir la forme suivante https://my.weezevent.com/',
+      })
+      .optional(),
   })
   .superRefine((data, ctx) => {
     const dateFrom = new Date(data.dateFrom)

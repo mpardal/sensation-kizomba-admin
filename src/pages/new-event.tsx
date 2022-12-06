@@ -38,14 +38,13 @@ function NewEventPage() {
       address: '',
       city: '',
       description: '',
+      weezeventUrl: '',
     },
     validateOnMount: true,
     validateOnChange: true,
     validateOnBlur: true,
     validationSchema: toFormikValidationSchema(EventFormZod),
     onSubmit: async (values) => {
-      console.log(values, {})
-
       await createEvent.mutateAsync(EventFormZod.parse(values))
     },
   })
