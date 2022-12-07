@@ -42,7 +42,7 @@ function EventForm({
 }>) {
   useEffect(() => {
     if (values.dateTo !== undefined) {
-      setFieldValue('type', 'once')
+      setFieldValue('type', 'weekly')
     }
   }, [])
 
@@ -137,57 +137,6 @@ function EventForm({
         <FormControl>
           <InputGroup>
             <InputLeftElement>
-              <Tooltip label={errors.teacher} isDisabled={!errors.teacher}>
-                {errors.teacher ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
-              </Tooltip>
-            </InputLeftElement>
-            <Input
-              type="text"
-              id="teacher"
-              name="teacher"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.teacher}
-              placeholder="Professeur"
-            />
-          </InputGroup>
-        </FormControl>
-
-        <FormControl>
-          <InputGroup>
-            <InputLeftElement>
-              <Tooltip label={errors.type} isDisabled={!errors.type}>
-                {errors.type ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
-              </Tooltip>
-            </InputLeftElement>
-            <Select
-              id="type"
-              name="type"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.type}
-              disabled={values.dateTo !== ''}
-              sx={{
-                paddingLeft: 10,
-              }}
-              title="récurrence de l'événement"
-            >
-              <option value="once">Une fois</option>
-              <option value="daily">Tous les jours</option>
-              <option value="weekly">Toutes les semaines</option>
-              <option value="bimonthly">Toutes les deux semaines</option>
-              <option value="monthly">Tous les mois</option>
-              <option value="quarterly">Tous les 3 mois</option>
-              <option value="quadrennial">Tous les 4 mois</option>
-              <option value="yearly">Tous les ans</option>
-              <option value="other">Autre</option>
-            </Select>
-          </InputGroup>
-        </FormControl>
-
-        <FormControl>
-          <InputGroup>
-            <InputLeftElement>
               <Tooltip label={errors.address} isDisabled={!errors.address}>
                 {errors.address ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
               </Tooltip>
@@ -199,27 +148,60 @@ function EventForm({
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.address}
-              placeholder="Adresse"
+              placeholder="Adresse complète"
             />
+          </InputGroup>
+        </FormControl>
+
+        <FormControl>
+            <InputGroup>
+              <InputLeftElement>
+                <Tooltip label={errors.city} isDisabled={!errors.city}>
+                  {errors.city ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+                </Tooltip>
+              </InputLeftElement>
+              <Select
+                  id="city"
+                  name="city"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.city}
+                  sx={{
+                    paddingLeft: 10,
+                  }}
+                  title="Localité"
+              >
+                <option value="Nantes">Nantes</option>
+                <option value="Bordeaux">Bordeaux</option>
+                <option value="Le Mans">Le Mans</option>
+                <option value="Orleans">Orléans</option>
+              </Select>
           </InputGroup>
         </FormControl>
 
         <FormControl>
           <InputGroup>
             <InputLeftElement>
-              <Tooltip label={errors.city} isDisabled={!errors.city}>
-                {errors.city ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              <Tooltip label={errors.type} isDisabled={!errors.type}>
+                {errors.type ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
               </Tooltip>
             </InputLeftElement>
-            <Input
-              type="text"
-              id="city"
-              name="city"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.city}
-              placeholder="Ville"
-            />
+            <Select
+                id="type"
+                name="type"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.type}
+                sx={{
+                  paddingLeft: 10,
+                }}
+                title="récurrence de l'événement"
+            >
+              <option value="weekly">Hebdomadaire</option>
+              <option value="monthly">Mensuel</option>
+              <option value="quarterly">Trimestriel</option>
+              <option value="yearly">Annuel</option>
+            </Select>
           </InputGroup>
         </FormControl>
 
@@ -227,11 +209,8 @@ function EventForm({
           <InputGroup>
             <InputLeftElement>
               <Tooltip label={errors.weezeventUrl} isDisabled={!errors.weezeventUrl}>
-                {errors.weezeventUrl ? (
-                  <WarningIcon color="red.500" />
-                ) : (
-                  <CheckIcon color="green.500" />
-                )}
+                {errors.weezeventUrl ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />
+                }
               </Tooltip>
             </InputLeftElement>
             <Input

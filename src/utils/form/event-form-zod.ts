@@ -2,23 +2,15 @@ import { z } from 'zod'
 import { AppEventType } from '../../types/app-event-type'
 
 const eventTypes = [
-  'daily',
   'weekly',
-  'bimonthly',
   'monthly',
   'quarterly',
-  'quadrennial',
-  'yearly',
-  'once',
-  'other',
+  'yearly'
 ] as AppEventType[]
 
 export const EventFormZod = z
   .object({
     title: z.string({
-      required_error: 'Requis',
-    }),
-    teacher: z.string({
       required_error: 'Requis',
     }),
     type: z.enum(eventTypes as [string, ...string[]], { required_error: 'Requis' }),
@@ -56,15 +48,11 @@ export const EventFormZod = z
     description: z.string({
       required_error: 'Requis',
     }),
-    weezeventUrl: z
-      .string({
-        required_error: 'Requis',
-      })
-      .url('Url invalide')
-      .regex(/^https:\/\/my.weezevent.com\/.+/, {
-        message: 'Doit avoir la forme suivante https://my.weezevent.com/',
-      })
-      .optional(),
+      weezeventUrl: z
+          .string({
+              required_error: 'Requis',
+          })
+          .optional(),
   })
   .superRefine((data, ctx) => {
     const dateFrom = new Date(data.dateFrom)

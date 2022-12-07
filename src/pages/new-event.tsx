@@ -32,7 +32,7 @@ function NewEventPage() {
     initialValues: {
       title: '',
       teacher: '',
-      type: 'once',
+      type: '',
       dateFrom: '',
       dateTo: '',
       address: '',
