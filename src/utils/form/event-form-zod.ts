@@ -1,20 +1,10 @@
 import { z } from 'zod'
 import { AppEventType } from '../../types/app-event-type'
-import {AppEventCity} from "../../types/app-event-city";
+import { AppEventCity } from '../../types/app-event-city'
 
-const eventTypes = [
-  'weekly',
-  'monthly',
-  'quarterly',
-  'yearly'
-] as AppEventType[]
+const eventTypes = ['weekly', 'monthly', 'quarterly', 'yearly'] as AppEventType[]
 
-const eventCities = [
-    'nantes',
-    'bordeaux',
-    'le-mans',
-    'orleans'
-] as AppEventCity[]
+const eventCities = ['nantes', 'bordeaux', 'le-mans', 'orleans'] as AppEventCity[]
 
 export const EventFormZod = z
   .object({
@@ -50,16 +40,15 @@ export const EventFormZod = z
     address: z.string({
       required_error: 'Requis',
     }),
-    city: z.enum(eventCities as [AppEventCity, ...AppEventCity[]],{ required_error: 'Requis' }
-    ),
+    city: z.enum(eventCities as [AppEventCity, ...AppEventCity[]], { required_error: 'Requis' }),
     description: z.string({
       required_error: 'Requis',
     }),
-      weezeventUrl: z
-          .string({
-              required_error: 'Requis',
-          })
-          .optional(),
+    weezeventUrl: z
+      .string({
+        required_error: 'Requis',
+      })
+      .optional(),
   })
   .superRefine((data, ctx) => {
     const dateFrom = new Date(data.dateFrom)

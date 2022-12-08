@@ -1,6 +1,6 @@
 function DashboardPage() {
   return (
-    <div className="p-4 container mx-auto">
+    <div className="container mx-auto p-4">
       <h2 className="text-xl text-white">Tableau de bord</h2>
     </div>
   )

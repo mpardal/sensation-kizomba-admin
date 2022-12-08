@@ -1,9 +1,18 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query'
-import { collection, getDocs, CollectionReference, QuerySnapshot, query, orderBy } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  CollectionReference,
+  QuerySnapshot,
+  query,
+  orderBy,
+} from 'firebase/firestore'
 import { database } from '../config/firebase'
 import { AppEvent } from '../types/app-event'
 
-export function useGetEvents(options: UseQueryOptions<QuerySnapshot<AppEvent>> = {}): UseQueryResult<QuerySnapshot<AppEvent>> {
+export function useGetEvents(
+  options: UseQueryOptions<QuerySnapshot<AppEvent>> = {}
+): UseQueryResult<QuerySnapshot<AppEvent>> {
   return useQuery({
     queryKey: ['events'],
     queryFn: () => {
@@ -12,6 +21,6 @@ export function useGetEvents(options: UseQueryOptions<QuerySnapshot<AppEvent>> =
 
       return getDocs<AppEvent>(eventsQuery)
     },
-    ...options
+    ...options,
   })
 }

@@ -154,28 +154,28 @@ function EventForm({
         </FormControl>
 
         <FormControl>
-            <InputGroup>
-              <InputLeftElement>
-                <Tooltip label={errors.city} isDisabled={!errors.city}>
-                  {errors.city ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
-                </Tooltip>
-              </InputLeftElement>
-              <Select
-                  id="city"
-                  name="city"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.city}
-                  sx={{
-                    paddingLeft: 10,
-                  }}
-                  title="Localité"
-              >
-                <option value="nantes">Nantes</option>
-                <option value="bordeaux">Bordeaux</option>
-                <option value="le-mans">Le Mans</option>
-                <option value="orleans">Orléans</option>
-              </Select>
+          <InputGroup>
+            <InputLeftElement>
+              <Tooltip label={errors.city} isDisabled={!errors.city}>
+                {errors.city ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />}
+              </Tooltip>
+            </InputLeftElement>
+            <Select
+              id="city"
+              name="city"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.city}
+              sx={{
+                paddingLeft: 10,
+              }}
+              title="Localité"
+            >
+              <option value="nantes">Nantes</option>
+              <option value="bordeaux">Bordeaux</option>
+              <option value="le-mans">Le Mans</option>
+              <option value="orleans">Orléans</option>
+            </Select>
           </InputGroup>
         </FormControl>
 
@@ -187,15 +187,15 @@ function EventForm({
               </Tooltip>
             </InputLeftElement>
             <Select
-                id="type"
-                name="type"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.type}
-                sx={{
-                  paddingLeft: 10,
-                }}
-                title="récurrence de l'événement"
+              id="type"
+              name="type"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.type}
+              sx={{
+                paddingLeft: 10,
+              }}
+              title="récurrence de l'événement"
             >
               <option value="weekly">Hebdomadaire</option>
               <option value="monthly">Mensuel</option>
@@ -209,8 +209,11 @@ function EventForm({
           <InputGroup>
             <InputLeftElement>
               <Tooltip label={errors.weezeventUrl} isDisabled={!errors.weezeventUrl}>
-                {errors.weezeventUrl ? <WarningIcon color="red.500" /> : <CheckIcon color="green.500" />
-                }
+                {errors.weezeventUrl ? (
+                  <WarningIcon color="red.500" />
+                ) : (
+                  <CheckIcon color="green.500" />
+                )}
               </Tooltip>
             </InputLeftElement>
             <Input

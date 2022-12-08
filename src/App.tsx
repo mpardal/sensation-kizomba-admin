@@ -12,9 +12,9 @@ const queryClient = new QueryClient({
       refetchOnReconnect: true,
       refetchOnWindowFocus: true,
       refetchOnMount: false,
-      refetchInterval: false
-    }
-  }
+      refetchInterval: false,
+    },
+  },
 })
 
 function App() {

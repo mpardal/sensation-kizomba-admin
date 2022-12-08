@@ -11,13 +11,13 @@ export class ValidationError extends Error {
 }
 
 function createValidationError(e: z.ZodError): ValidationError {
-  const error = new ValidationError(e.message);
+  const error = new ValidationError(e.message)
   error.inner = e.errors.map((err) => ({
     message: err.message,
     path: err.path.join('.'),
-  }));
+  }))
 
-  return error;
+  return error
 }
 
 /**
@@ -28,15 +28,15 @@ function createValidationError(e: z.ZodError): ValidationError {
  */
 export function toFormikValidationSchema<T>(
   schema: z.ZodSchema<T>,
-  params?: Partial<z.ParseParams>,
+  params?: Partial<z.ParseParams>
 ): { validate: (obj: T) => Promise<void> } {
   return {
     async validate(obj: T): Promise<void> {
       try {
-        await schema.parseAsync(obj, params);
+        await schema.parseAsync(obj, params)
       } catch (err: unknown) {
-        throw createValidationError(err as z.ZodError<T>);
+        throw createValidationError(err as z.ZodError<T>)
       }
     },
-  };
+  }
 }

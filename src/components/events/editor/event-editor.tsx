@@ -35,7 +35,7 @@ function EventEditor({
         types: ['heading', 'paragraph', 'image'],
       }),
       Image.configure({
-      inline: true,
+        inline: true,
       }),
     ],
     content: '',

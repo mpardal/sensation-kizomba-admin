@@ -1,6 +1,6 @@
-@import "@fontsource/alatsi/latin-400.css";
-@import "@fontsource/cagliostro/latin-400.css";
-@import "@fontsource/inter/latin-400.css";
+@import '@fontsource/alatsi/latin-400.css';
+@import '@fontsource/cagliostro/latin-400.css';
+@import '@fontsource/inter/latin-400.css';
 
 @tailwind base;
 @tailwind components;
