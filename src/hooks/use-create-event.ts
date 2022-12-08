@@ -28,7 +28,6 @@ export function useCreateEvent({
       return await addDoc(colRef, {
         type: form.type as AppEventType,
         title: form.title,
-        teacher: form.teacher,
         city: form.city,
         address: form.address,
         date,

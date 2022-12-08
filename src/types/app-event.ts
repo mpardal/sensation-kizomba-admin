@@ -5,7 +5,6 @@ export type AppEvent = {
   city: string
   title: string
   address: string
-  teacher: string
   type: AppEventType
   date: AppEventDate
   description: string

@@ -34,7 +34,9 @@ function EventEditor({
       TextAlign.configure({
         types: ['heading', 'paragraph', 'image'],
       }),
-      Image,
+      Image.configure({
+      inline: true,
+      }),
     ],
     content: '',
     onUpdate: ({ editor }) => {

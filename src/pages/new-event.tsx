@@ -31,12 +31,11 @@ function NewEventPage() {
   >({
     initialValues: {
       title: '',
-      teacher: '',
-      type: 'once',
+      type: 'weekly',
       dateFrom: '',
       dateTo: '',
       address: '',
-      city: '',
+      city: 'nantes',
       description: '',
       weezeventUrl: '',
     },
