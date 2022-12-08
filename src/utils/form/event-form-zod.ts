@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { AppEventType } from '../../types/app-event-type'
+import {AppEventCity} from "../../types/app-event-city";
 
 const eventTypes = [
   'weekly',
@@ -8,12 +9,19 @@ const eventTypes = [
   'yearly'
 ] as AppEventType[]
 
+const eventCities = [
+    'nantes',
+    'bordeaux',
+    'le-mans',
+    'orleans'
+] as AppEventCity[]
+
 export const EventFormZod = z
   .object({
     title: z.string({
       required_error: 'Requis',
     }),
-    type: z.enum(eventTypes as [string, ...string[]], { required_error: 'Requis' }),
+    type: z.enum(eventTypes as [AppEventType, ...AppEventType[]], { required_error: 'Requis' }),
     dateFrom: z.preprocess(
       (arg) => {
         if (typeof arg == 'string' || arg instanceof Date) return new Date(arg)
@@ -42,9 +50,8 @@ export const EventFormZod = z
     address: z.string({
       required_error: 'Requis',
     }),
-    city: z.string({
-      required_error: 'Requis',
-    }),
+    city: z.enum(eventCities as [AppEventCity, ...AppEventCity[]],{ required_error: 'Requis' }
+    ),
     description: z.string({
       required_error: 'Requis',
     }),

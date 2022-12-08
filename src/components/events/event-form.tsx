@@ -171,10 +171,10 @@ function EventForm({
                   }}
                   title="Localité"
               >
-                <option value="Nantes">Nantes</option>
-                <option value="Bordeaux">Bordeaux</option>
-                <option value="Le Mans">Le Mans</option>
-                <option value="Orleans">Orléans</option>
+                <option value="nantes">Nantes</option>
+                <option value="bordeaux">Bordeaux</option>
+                <option value="le-mans">Le Mans</option>
+                <option value="orleans">Orléans</option>
               </Select>
           </InputGroup>
         </FormControl>
