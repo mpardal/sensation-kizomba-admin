@@ -130,6 +130,7 @@ function ImagesFormControl({
               boxSize="100px"
               objectFit="cover"
               alt={`image ajoutée ${i}`}
+              borderRadius="md"
             />
           </Box>
         ))}
