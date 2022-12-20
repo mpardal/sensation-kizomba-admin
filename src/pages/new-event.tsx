@@ -8,7 +8,7 @@ import {
   HStack,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import EventForm from '../components/events/event-form'
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
 import { useCreateEvent } from '../hooks/use-create-event'
@@ -17,6 +17,7 @@ import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
 
 function NewEventPage() {
   const createEvent = useCreateEvent()
+  const navigate = useNavigate()
   const {
     values,
     handleSubmit,
@@ -45,6 +46,7 @@ function NewEventPage() {
     validationSchema: toFormikValidationSchema(EventFormZod),
     onSubmit: async (values) => {
       await createEvent.mutateAsync(EventFormZod.parse(values))
+      navigate('/events')
     },
   })
 

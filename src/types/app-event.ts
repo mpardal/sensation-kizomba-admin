@@ -9,4 +9,5 @@ export type AppEvent = {
   date: AppEventDate
   description: string
   weezeventUrl?: string
+  images: string[]
 }
