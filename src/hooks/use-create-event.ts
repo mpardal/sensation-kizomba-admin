@@ -38,8 +38,6 @@ export function useCreateEvent({
         (imageUploadedSnapshot) => imageUploadedSnapshot.status === 'fulfilled'
       ) as PromiseFulfilledResult<UploadTaskSnapshot>[]
 
-      console.log(successFullImageUploadedSnapshots[0]?.value)
-
       const colRef = collection(database, 'events') as CollectionReference<AppEvent>
       return await addDoc(colRef, {
         type: form.type as AppEventType,

@@ -112,7 +112,6 @@ function ImagesFormControl({
               top="50%"
               transform="translate(-50%, -50%)"
               colorScheme="red"
-              //bg="rgba(229, 62, 62, 0.3)"
               h="full"
               w="full"
               onClick={() => {

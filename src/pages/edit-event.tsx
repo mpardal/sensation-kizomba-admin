@@ -42,7 +42,7 @@ function EditEventPage() {
         </HStack>
       </Flex>
 
-      <div>L'édition n'est pas encore implémentée</div>
+      <div>La modification d'un événement n'est pas encore implémentée</div>
     </Container>
   )
 }
