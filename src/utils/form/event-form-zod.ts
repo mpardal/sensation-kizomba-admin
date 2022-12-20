@@ -49,6 +49,7 @@ export const EventFormZod = z
         required_error: 'Requis',
       })
       .optional(),
+    images: z.array(z.instanceof(File)).optional(),
   })
   .superRefine((data, ctx) => {
     const dateFrom = new Date(data.dateFrom)

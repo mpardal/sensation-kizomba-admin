@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Routes, Route } from 'react-router-dom'
 import Main from './components/main'
+import EditEventPage from './pages/edit-event'
 import NewEventPage from './pages/new-event'
 import DashboardPage from './pages/dashboard'
 import EventsPage from './pages/events'
@@ -26,6 +27,7 @@ function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="events" element={<EventsPage />} />
           <Route path="events/new" element={<NewEventPage />} />
+          <Route path="events/:id/edit" element={<EditEventPage />} />
         </Route>
       </Routes>
     </QueryClientProvider>

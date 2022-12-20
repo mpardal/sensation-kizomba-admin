@@ -1,7 +1,6 @@
 import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
   Box,
-  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -11,7 +10,6 @@ import {
   InputLeftAddon,
   InputLeftElement,
   Select,
-  Textarea,
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
@@ -19,6 +17,7 @@ import { useFormik } from 'formik'
 import { PropsWithChildren, useEffect } from 'react'
 import { EventFormZodValues } from '../../utils/form/event-form-zod'
 import EventEditor from './editor/event-editor'
+import ImagesFormControl from './images-form-control'
 
 type UseFormikResult = ReturnType<
   typeof useFormik<
@@ -227,6 +226,8 @@ function EventForm({
             />
           </InputGroup>
         </FormControl>
+
+        <ImagesFormControl values={values} setFieldValue={setFieldValue} />
 
         <FormControl>
           <FormLabel
