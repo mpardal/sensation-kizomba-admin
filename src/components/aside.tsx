@@ -1,5 +1,4 @@
-import { Box, Stack, VStack } from '@chakra-ui/react'
-import cx from 'classnames'
+import { Box, Stack } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
