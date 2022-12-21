@@ -8,9 +8,11 @@ function navMobile() {
       display={[null, null, null, 'none']}
       direction="row"
       as="nav"
-      w="full"
-      aria-label="Navigation mobile"
+      p={6}
+      pt={4}
+      pr={8}
       textAlign="center"
+      aria-label="Navigation mobile"
     >
       <NavItem path="/dashboard"> Tableau de bord</NavItem>
       <NavItem path="/events"> Événements</NavItem>
@@ -27,7 +29,10 @@ function NavItem({ path, children }: PropsWithChildren<{ path: string }>) {
       as={Link}
       to={path}
       borderRadius="md"
-      fontWeight={active ? 'orange.200' : 'transparent'}
+      py={1}
+      px={3}
+      fontWeight={active ? 600 : 500}
+      bg={active ? 'orange.200' : 'transparent'}
       color={active ? 'gray.700' : undefined}
       transition="background-color 0.15s ease-in-out"
       fontSize="sm"

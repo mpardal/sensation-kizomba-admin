@@ -8,9 +8,9 @@ function Main() {
   return (
     <div>
       <Header />
+      <NavMobile />
       <Box as="section" display="flex">
         <Aside />
-        <NavMobile />
         <Box as="main" flexGrow={1} overflowX="auto">
           <Outlet />
         </Box>
