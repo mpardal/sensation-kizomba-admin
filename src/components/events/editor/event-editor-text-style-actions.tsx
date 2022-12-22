@@ -28,6 +28,7 @@ function EventEditorTextStyleActions({ editor }: { editor: Editor | null }) {
             inputColorRef.current?.click()
           }}
           aria-label="sélection de couleur"
+          title="Sélection de couleur"
           icon={<MdFormatColorText />}
           style={{
             backgroundColor: currentColor,
@@ -40,6 +41,7 @@ function EventEditorTextStyleActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().unsetColor().run()
         }}
         aria-label="réinitialiser la couleur"
+        title="Réinitialiser la couleur"
         icon={<MdFormatColorReset />}
       />
     </>

@@ -5,7 +5,6 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
-  HStack,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -14,10 +13,8 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
-import { QueryDocumentSnapshot } from 'firebase/firestore'
 import { useFormik } from 'formik'
 import { PropsWithChildren, useEffect } from 'react'
-import { AppEvent } from '../../types/app-event'
 import { EventFormZodValues } from '../../utils/form/event-form-zod'
 import EventEditor from './editor/event-editor'
 import ImagesFormControl from './images-form-control'
@@ -249,8 +246,6 @@ function EventForm({
             )}
           </FormLabel>
           <EventEditor
-            id="description"
-            name="description"
             onChange={(value) => setFieldValue('description', value)}
             defaultValue={values.description}
           />

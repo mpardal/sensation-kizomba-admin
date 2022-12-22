@@ -1,14 +1,10 @@
 import { Editor } from '@tiptap/react'
 import {
-  MdFormatBold,
-  MdFormatItalic,
-  MdFormatStrikethrough,
-  MdFormatUnderlined,
   MdOutlineFormatAlignCenter,
   MdOutlineFormatAlignJustify,
   MdOutlineFormatAlignLeft,
   MdOutlineFormatAlignRight,
-} from 'react-icons/all'
+} from 'react-icons/md'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
 function EventEditorTextAlignActions({ editor }: { editor: Editor | null }) {
@@ -20,6 +16,7 @@ function EventEditorTextAlignActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().setTextAlign('left').run()
         }}
         aria-label="aligné à gauche"
+        title="Aligné à gauche"
         icon={<MdOutlineFormatAlignLeft />}
       />
       <EventEditorActionIconButton
@@ -28,6 +25,7 @@ function EventEditorTextAlignActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().setTextAlign('center').run()
         }}
         aria-label="aligné au centre"
+        title="Aligné au centre"
         icon={<MdOutlineFormatAlignCenter />}
       />
       <EventEditorActionIconButton
@@ -36,6 +34,7 @@ function EventEditorTextAlignActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().setTextAlign('right').run()
         }}
         aria-label="aligné à droite"
+        title="Aligné à droite"
         icon={<MdOutlineFormatAlignRight />}
       />
       <EventEditorActionIconButton
@@ -44,6 +43,7 @@ function EventEditorTextAlignActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().setTextAlign('justify').run()
         }}
         aria-label="justifié"
+        title="Justifié"
         icon={<MdOutlineFormatAlignJustify />}
       />
     </>

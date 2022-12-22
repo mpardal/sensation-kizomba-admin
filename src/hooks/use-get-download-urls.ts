@@ -3,7 +3,7 @@ import { getDownloadURL, ref } from 'firebase/storage'
 import { storage } from '../config/firebase'
 
 export function getDownloadUrls() {
-  return ['download-urls']
+  return ['storage', 'download-urls']
 }
 
 export function useGetDownloadUrls(urls: string[], options: UseQueryOptions<string[]> = {}) {

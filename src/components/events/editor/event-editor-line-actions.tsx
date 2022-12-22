@@ -1,12 +1,6 @@
 import { Editor } from '@tiptap/react'
-import {
-  ImPageBreak,
-  MdCode,
-  MdFormatListNumbered,
-  MdFormatQuote,
-  MdHorizontalRule,
-  MdList,
-} from 'react-icons/all'
+import { MdHorizontalRule } from 'react-icons/md'
+import { ImPageBreak } from 'react-icons/im'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
 function EventEditorLineActions({ editor }: { editor: Editor | null }) {
@@ -17,6 +11,7 @@ function EventEditorLineActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().setHorizontalRule().run()
         }}
         aria-label="séparateur"
+        title="Séparateur"
         icon={<MdHorizontalRule />}
       />
       <EventEditorActionIconButton
@@ -24,6 +19,7 @@ function EventEditorLineActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().setHardBreak().run()
         }}
         aria-label="saut de ligne"
+        title="Saut de ligne"
         icon={<ImPageBreak />}
       />
     </>

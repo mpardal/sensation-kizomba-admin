@@ -1,4 +1,4 @@
-import { HStack, Stack, Wrap, WrapItem } from '@chakra-ui/react'
+import { Box, HStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { Color } from '@tiptap/extension-color'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Underline } from '@tiptap/extension-underline'
@@ -16,13 +16,9 @@ import EventEditorTextStyleActions from './event-editor-text-style-actions'
 import EventEditorUndoRedoActions from './event-editor-undo-redo-actions'
 
 function EventEditor({
-  id,
-  name,
   defaultValue,
   onChange,
 }: {
-  id: string
-  name: string
   defaultValue: string
   onChange: (value: string) => void
 }) {
@@ -47,8 +43,24 @@ function EventEditor({
   })
 
   return (
-    <Stack direction="column" mb={12}>
-      <Wrap spacing={4} p={2}>
+    <Box
+      mb={12}
+      sx={{
+        '--border-color': 'var(--chakra-colors-orange-200)',
+      }}
+      _focusWithin={{
+        '--border-color': 'var(--chakra-colors-orange-400)',
+      }}
+    >
+      <Wrap
+        spacingX={4}
+        p={2}
+        border="1px"
+        borderColor="var(--border-color)"
+        borderBottom="none"
+        borderTopStartRadius="md"
+        borderTopEndRadius="md"
+      >
         <WrapItem>
           <HStack>
             <EventEditorUndoRedoActions editor={editor} />
@@ -78,8 +90,15 @@ function EventEditor({
           </HStack>
         </WrapItem>
       </Wrap>
-      <EditorContent editor={editor} />
-    </Stack>
+      <Box
+        border="1px"
+        borderBottomStartRadius="md"
+        borderBottomEndRadius="md"
+        borderColor="var(--border-color)"
+      >
+        <EditorContent editor={editor} />
+      </Box>
+    </Box>
   )
 }
 

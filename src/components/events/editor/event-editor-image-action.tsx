@@ -18,7 +18,6 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  Box,
   CircularProgress,
   SimpleGrid,
   AspectRatio,
@@ -166,7 +165,8 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
         onClick={() => {
           setChoosingImage(true)
         }}
-        aria-label="aligné à gauche"
+        aria-label="ajouter une image"
+        title="Ajouter une image"
         icon={<MdImage />}
       />
       <Modal isOpen={isChoosingImage} onClose={onClose}>

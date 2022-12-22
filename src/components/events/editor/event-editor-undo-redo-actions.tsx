@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/react'
-import { MdCode, MdFormatListNumbered, MdList, MdRedo, MdUndo } from 'react-icons/all'
+import { MdRedo, MdUndo } from 'react-icons/md'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
 function EventEditorUndoRedoActions({ editor }: { editor: Editor | null }) {
@@ -11,6 +11,7 @@ function EventEditorUndoRedoActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().undo().run()
         }}
         aria-label="annuler les modifications"
+        title="Annuler les modifications"
         icon={<MdUndo />}
       />
       <EventEditorActionIconButton
@@ -19,6 +20,7 @@ function EventEditorUndoRedoActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().redo().run()
         }}
         aria-label="rétablir les modifications"
+        title="Rétablir les modifications"
         icon={<MdRedo />}
       />
     </>

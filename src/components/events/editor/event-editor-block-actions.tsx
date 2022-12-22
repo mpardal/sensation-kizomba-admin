@@ -11,6 +11,7 @@ function EventEditorBlockActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().toggleBulletList().run()
         }}
         aria-label="liste à puces"
+        title="Liste à puces"
         icon={<MdList />}
       />
       <EventEditorActionIconButton
@@ -19,6 +20,7 @@ function EventEditorBlockActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().toggleOrderedList().run()
         }}
         aria-label="liste numérotée"
+        title="Liste numérotée"
         icon={<MdFormatListNumbered />}
       />
       <EventEditorActionIconButton
@@ -27,6 +29,7 @@ function EventEditorBlockActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().toggleCodeBlock().run()
         }}
         aria-label="bloc de code"
+        title="Bloc de code"
         icon={<MdCode />}
       />
       <EventEditorActionIconButton
@@ -35,6 +38,7 @@ function EventEditorBlockActions({ editor }: { editor: Editor | null }) {
           editor?.chain().focus().toggleBlockquote().run()
         }}
         aria-label="citation"
+        title="Citation"
         icon={<MdFormatQuote />}
       />
     </>

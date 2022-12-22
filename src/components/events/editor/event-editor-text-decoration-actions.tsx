@@ -16,6 +16,7 @@ function EventEditorTextDecorationActions({ editor }: { editor: Editor | null })
           editor?.chain().focus().toggleBold().run()
         }}
         aria-label="gras"
+        title="Gras"
         icon={<MdFormatBold />}
       />
       <EventEditorActionIconButton
@@ -24,6 +25,7 @@ function EventEditorTextDecorationActions({ editor }: { editor: Editor | null })
           editor?.chain().focus().toggleItalic().run()
         }}
         aria-label="italique"
+        title="Italique"
         icon={<MdFormatItalic />}
       />
       <EventEditorActionIconButton
@@ -32,6 +34,7 @@ function EventEditorTextDecorationActions({ editor }: { editor: Editor | null })
           editor?.chain().focus().toggleStrike().run()
         }}
         aria-label="barré"
+        title="Barré"
         icon={<MdFormatStrikethrough />}
       />
       <EventEditorActionIconButton
@@ -40,6 +43,7 @@ function EventEditorTextDecorationActions({ editor }: { editor: Editor | null })
           editor?.chain().focus().toggleUnderline().run()
         }}
         aria-label="souligné"
+        title="Souligné"
         icon={<MdFormatUnderlined />}
       />
     </>
