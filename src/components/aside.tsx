@@ -1,21 +1,20 @@
-import { Box, Stack, VStack } from '@chakra-ui/react'
-import cx from 'classnames'
+import { Box, Stack } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 function Aside() {
   return (
     <Stack
-      display={['none', null, null, 'flex']}
-      direction="column"
+      direction={['row', 'column']}
       as="nav"
-      w="270px"
+      w={['full', '270px']}
+      justifyContent={['center', 'unset']}
       minW="270px"
       p={6}
       pt={4}
       pr={8}
       aria-label="Navigation"
-      h="calc(100vh - 8.125rem)"
+      h={['auto', 'calc(100vh - 8.125rem)']}
       whiteSpace="nowrap"
     >
       <AsideItem path="/dashboard">Tableau de bord</AsideItem>

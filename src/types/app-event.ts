@@ -1,8 +1,9 @@
+import { AppEventCity } from './app-event-city'
 import { AppEventDate } from './app-event-date'
 import { AppEventType } from './app-event-type'
 
 export type AppEvent = {
-  city: string
+  city: AppEventCity
   title: string
   address: string
   type: AppEventType
