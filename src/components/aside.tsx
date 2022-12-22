@@ -5,16 +5,16 @@ import { Link, useLocation } from 'react-router-dom'
 function Aside() {
   return (
     <Stack
-      direction={['row', 'column']}
+      direction={['row', null, null, 'column']}
       as="nav"
-      w={['full', '270px']}
-      justifyContent={['center', 'unset']}
+      w={['full', null, null, '270px']}
+      justifyContent={['center', null, null, 'unset']}
       minW="270px"
       p={6}
       pt={4}
       pr={8}
       aria-label="Navigation"
-      h={['auto', 'calc(100vh - 8.125rem)']}
+      h={['auto', null, null, 'calc(100vh - 8.125rem)']}
       whiteSpace="nowrap"
     >
       <AsideItem path="/dashboard">Tableau de bord</AsideItem>

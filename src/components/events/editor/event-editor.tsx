@@ -18,10 +18,12 @@ import EventEditorUndoRedoActions from './event-editor-undo-redo-actions'
 function EventEditor({
   id,
   name,
+  defaultValue,
   onChange,
 }: {
   id: string
   name: string
+  defaultValue: string
   onChange: (value: string) => void
 }) {
   // TODO: gérer la taille d'images, gérer les liens
@@ -38,14 +40,14 @@ function EventEditor({
         inline: true,
       }),
     ],
-    content: '',
+    content: defaultValue,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML())
     },
   })
 
   return (
-    <Stack direction="column">
+    <Stack direction="column" mb={12}>
       <Wrap spacing={4} p={2}>
         <WrapItem>
           <HStack>

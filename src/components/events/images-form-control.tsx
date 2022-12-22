@@ -1,6 +1,7 @@
 import { Box, Button, Flex, FormControl, Image } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useRef, useState } from 'react'
+import { useGetDownloadUrls } from '../../hooks/use-get-download-urls'
 import { EventFormZodValues } from '../../utils/form/event-form-zod'
 
 type UseFormikResult = ReturnType<
@@ -14,16 +15,38 @@ function ImagesFormControl({
   setFieldValue,
 }: {
   values: UseFormikResult['values']
-  setFieldValue: UseFormikResult['setFieldValue']
+  setFieldValue: (field: string, value: unknown) => void
 }) {
   const [counter, setCount] = useState(0)
-  const [dataURLImages, setDataURLImages] = useState<{ id: number; data: string }[]>([])
+  const [urls, setUrls] = useState<{ id: number | string; data: string }[]>([])
   const imagesInputRef = useRef<HTMLInputElement>(null)
+  const [gotUrls, setGotUrls] = useState(false)
+
+  const downloadUrls = useGetDownloadUrls(
+    (values.images?.filter((i) => typeof i === 'string') as string[]) ?? [],
+    {
+      enabled: !gotUrls,
+      onSuccess: (urls) => {
+        setUrls(
+          urls.map((url) => {
+            return {
+              id: url,
+              data: url,
+            }
+          })
+        )
+      },
+      onSettled: () => {
+        setGotUrls(true)
+      },
+    }
+  )
 
   return (
     <>
       <FormControl>
         <input
+          disabled={downloadUrls.isLoading}
           type="file"
           accept="image/*"
           multiple
@@ -60,7 +83,7 @@ function ImagesFormControl({
             const count = counter
 
             setCount((count) => count + dataURLs.length)
-            setDataURLImages((data) => [
+            setUrls((data) => [
               ...data,
               ...dataURLs.map((dataURL, index) => ({ id: count + index, data: dataURL })),
             ])
@@ -73,6 +96,8 @@ function ImagesFormControl({
         />
         <Button
           size="sm"
+          isLoading={downloadUrls.isLoading}
+          disabled={downloadUrls.isLoading}
           onClick={() => {
             imagesInputRef.current?.click()
           }}
@@ -87,7 +112,7 @@ function ImagesFormControl({
         role="tablist"
         aria-label="liste des images ajoutées"
       >
-        {dataURLImages.map((dataURLImage, i) => (
+        {urls.map((dataURLImage, i) => (
           <Box
             as="article"
             key={dataURLImage.id}
@@ -115,7 +140,7 @@ function ImagesFormControl({
               h="full"
               w="full"
               onClick={() => {
-                setDataURLImages(dataURLImages.filter((_, j) => j !== i))
+                setUrls(urls.filter((_, j) => j !== i))
                 setFieldValue(
                   'images',
                   values.images?.filter((_, j) => j !== i)

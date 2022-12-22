@@ -1,6 +1,7 @@
 import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
   Box,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -13,8 +14,10 @@ import {
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
+import { QueryDocumentSnapshot } from 'firebase/firestore'
 import { useFormik } from 'formik'
 import { PropsWithChildren, useEffect } from 'react'
+import { AppEvent } from '../../types/app-event'
 import { EventFormZodValues } from '../../utils/form/event-form-zod'
 import EventEditor from './editor/event-editor'
 import ImagesFormControl from './images-form-control'
@@ -36,7 +39,7 @@ function EventForm({
   handleChange: UseFormikResult['handleChange']
   handleBlur: UseFormikResult['handleBlur']
   values: UseFormikResult['values']
-  setFieldValue: UseFormikResult['setFieldValue']
+  setFieldValue: (field: string, value: unknown) => void
   errors: UseFormikResult['errors']
 }>) {
   useEffect(() => {
@@ -82,7 +85,7 @@ function EventForm({
           </InputGroup>
         </FormControl>
 
-        <HStack alignItems="stretch">
+        <Flex wrap={['wrap', 'nowrap']} gap={2}>
           <FormControl>
             <InputGroup>
               <InputLeftAddon pl={3}>
@@ -131,7 +134,7 @@ function EventForm({
               />
             </InputGroup>
           </FormControl>
-        </HStack>
+        </Flex>
 
         <FormControl>
           <InputGroup>
@@ -249,6 +252,7 @@ function EventForm({
             id="description"
             name="description"
             onChange={(value) => setFieldValue('description', value)}
+            defaultValue={values.description}
           />
         </FormControl>
       </VStack>

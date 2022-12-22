@@ -7,7 +7,7 @@ import { storage } from '../config/firebase'
 export function useUploadImage({
   onProgress,
   ...options
-}: UseMutationOptions<UploadTaskSnapshot, unknown, File> & {
+}: UseMutationOptions<UploadTaskSnapshot, unknown, Blob> & {
   onProgress?: (snapshot: UploadTaskSnapshot) => void
 } = {}) {
   return useMutation({
