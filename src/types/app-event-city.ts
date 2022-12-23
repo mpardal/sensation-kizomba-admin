@@ -1,1 +1,1 @@
-export type AppEventCity = 'nantes' | 'bordeaux' | 'le-mans' | 'orleans'
+export type AppEventCity = 'nantes' | 'bordeaux' | 'le-mans' | 'orleans' | 'rennes'
