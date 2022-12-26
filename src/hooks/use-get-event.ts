@@ -9,22 +9,31 @@ import {
 import { database } from '../config/firebase'
 import { AppEvent } from '../types/app-event'
 
+export type GetEventResultType = QueryDocumentSnapshot<AppEvent>
+
 export function getEventQueryKey(id: string) {
-  return ['event', id]
+  return ['events', id]
 }
 
 export function useGetEvent(
   id: string,
-  options: UseQueryOptions<QueryDocumentSnapshot<AppEvent>> = {}
-): UseQueryResult<QueryDocumentSnapshot<AppEvent>> {
+  options: UseQueryOptions<GetEventResultType> = {}
+): UseQueryResult<GetEventResultType> {
   return useQuery({
     queryKey: getEventQueryKey(id),
     queryFn: async () => {
       const col = collection(database, 'events') as CollectionReference<AppEvent>
       const docRef = doc(col, id)
 
-      return (await getDoc(docRef)) as QueryDocumentSnapshot<AppEvent>
+      const myDoc = (await getDoc(docRef)) as QueryDocumentSnapshot<AppEvent>
+
+      if (!myDoc.exists()) {
+        throw new Error('event not found')
+      }
+
+      return myDoc
     },
+    retry: 1,
     ...options,
   })
 }
