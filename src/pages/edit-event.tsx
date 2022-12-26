@@ -19,7 +19,6 @@ import { AppEvent } from '../types/app-event'
 import { EventFormZod, EventFormZodValues } from '../utils/form/event-form-zod'
 import { toInputTypeDate } from '../utils/form/input-date'
 import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
-import dayjs from 'dayjs'
 
 function EditEventPage() {
   const { id } = useParams<{ id: string }>()
@@ -28,8 +27,6 @@ function EditEventPage() {
     cacheTime: 0,
     onSuccess: (event) => {
       const data = event.data() as AppEvent
-
-      console.log(data.date.from.toDate(), dayjs(data.date.from.toDate()).format())
 
       setValues({
         title: data.title,

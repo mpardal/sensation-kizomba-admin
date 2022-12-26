@@ -102,7 +102,6 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
   })
   const uploadImage = useUploadImage({
     onSuccess: async (data) => {
-      console.log(data)
       onClose()
       // get real url
       editor
