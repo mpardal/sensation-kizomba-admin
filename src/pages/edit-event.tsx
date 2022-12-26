@@ -17,7 +17,9 @@ import { useEditEvent } from '../hooks/use-edit-event'
 import { useGetEvent } from '../hooks/use-get-event'
 import { AppEvent } from '../types/app-event'
 import { EventFormZod, EventFormZodValues } from '../utils/form/event-form-zod'
+import { toInputTypeDate } from '../utils/form/input-date'
 import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
+import dayjs from 'dayjs'
 
 function EditEventPage() {
   const { id } = useParams<{ id: string }>()
@@ -27,11 +29,13 @@ function EditEventPage() {
     onSuccess: (event) => {
       const data = event.data() as AppEvent
 
+      console.log(data.date.from.toDate(), dayjs(data.date.from.toDate()).format())
+
       setValues({
         title: data.title,
         type: data.type,
-        dateFrom: data.date.from.toDate().toISOString().slice(0, -1), // get ISOString and remove the "Z" at the end. input date expect a ISO date without the "Z"
-        dateTo: data.date.to?.toDate().toISOString().slice(0, -1) ?? '',
+        dateFrom: toInputTypeDate(data.date.from.toDate()), // get ISOString and remove the "Z" at the end. input date expect a ISO date without the "Z"
+        dateTo: data.date.to ? toInputTypeDate(data.date.to.toDate()) : '',
         address: data.address,
         city: data.city,
         description: data.description,
