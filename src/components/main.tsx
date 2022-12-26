@@ -7,7 +7,7 @@ function Main() {
   return (
     <div>
       <Header />
-      <Flex as="section" flexDirection={['column', 'row']}>
+      <Flex as="section" flexDirection={['column', null, null, 'row']}>
         <Aside />
         <Box as="main" flexGrow={1} overflowX="auto">
           <Outlet />

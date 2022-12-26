@@ -28,7 +28,7 @@ export function useCreateEvent({
         date.to = Timestamp.fromDate(form.dateTo)
       }
 
-      const imagesToUpload = form.images ?? []
+      const imagesToUpload = (form.images ?? []).filter((image) => image instanceof Blob) as Blob[]
 
       const imageUploadedSnapshots = await Promise.allSettled(
         imagesToUpload.map((image) => uploadImage.mutateAsync(image))

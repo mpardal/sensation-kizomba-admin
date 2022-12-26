@@ -1,10 +1,10 @@
 import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import {
   Box,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
-  HStack,
   Input,
   InputGroup,
   InputLeftAddon,
@@ -36,7 +36,7 @@ function EventForm({
   handleChange: UseFormikResult['handleChange']
   handleBlur: UseFormikResult['handleBlur']
   values: UseFormikResult['values']
-  setFieldValue: UseFormikResult['setFieldValue']
+  setFieldValue: (field: string, value: unknown) => void
   errors: UseFormikResult['errors']
 }>) {
   useEffect(() => {
@@ -82,7 +82,7 @@ function EventForm({
           </InputGroup>
         </FormControl>
 
-        <HStack alignItems="stretch">
+        <Flex wrap={['wrap', 'nowrap']} gap={2}>
           <FormControl>
             <InputGroup>
               <InputLeftAddon pl={3}>
@@ -131,7 +131,7 @@ function EventForm({
               />
             </InputGroup>
           </FormControl>
-        </HStack>
+        </Flex>
 
         <FormControl>
           <InputGroup>
@@ -246,9 +246,8 @@ function EventForm({
             )}
           </FormLabel>
           <EventEditor
-            id="description"
-            name="description"
             onChange={(value) => setFieldValue('description', value)}
+            defaultValue={values.description}
           />
         </FormControl>
       </VStack>

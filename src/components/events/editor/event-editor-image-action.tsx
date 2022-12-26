@@ -18,7 +18,6 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  Box,
   CircularProgress,
   SimpleGrid,
   AspectRatio,
@@ -28,7 +27,7 @@ import { Editor } from '@tiptap/react'
 import { getDownloadURL } from 'firebase/storage'
 import { Reducer, useEffect, useReducer, useRef, useState } from 'react'
 import { MdImage } from 'react-icons/all'
-import { useGetImages } from '../../../hooks/use-get-images'
+import { useGetStorageImages } from '../../../hooks/use-get-storage-images'
 import { useUploadImage } from '../../../hooks/use-upload-image'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
@@ -98,12 +97,11 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
     }
   )
   const queryClient = useQueryClient()
-  const eventsImages = useGetImages({
+  const eventsImages = useGetStorageImages({
     enabled: currentAccordionIndex === 1 && isChoosingImage,
   })
   const uploadImage = useUploadImage({
     onSuccess: async (data) => {
-      console.log(data)
       onClose()
       // get real url
       editor
@@ -166,7 +164,8 @@ function EventEditorImageAction({ editor }: { editor: Editor | null }) {
         onClick={() => {
           setChoosingImage(true)
         }}
-        aria-label="aligné à gauche"
+        aria-label="ajouter une image"
+        title="Ajouter une image"
         icon={<MdImage />}
       />
       <Modal isOpen={isChoosingImage} onClose={onClose}>
