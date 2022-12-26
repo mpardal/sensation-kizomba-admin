@@ -13,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import EventForm from '../components/events/event-form'
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
 import { useCreateEvent } from '../hooks/use-create-event'
+import { getEventsQueryKey } from '../hooks/use-get-events'
 import { EventFormZod, EventFormZodValues } from '../utils/form/event-form-zod'
 import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
 
@@ -48,7 +49,7 @@ function NewEventPage() {
     validationSchema: toFormikValidationSchema(EventFormZod),
     onSubmit: async (values) => {
       await createEvent.mutateAsync(EventFormZod.parse(values))
-      await queryClient.invalidateQueries(['events'], {
+      await queryClient.invalidateQueries(getEventsQueryKey, {
         type: 'inactive',
       })
       navigate('/events')

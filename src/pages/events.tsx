@@ -24,7 +24,7 @@ import DeleteEventAlertDialog from '../components/events/delete-event-alert-dial
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
 import { useDeleteEvent } from '../hooks/use-delete-event'
 import { useDeleteEventAlertDialog } from '../hooks/use-delete-event-alert-dialog'
-import { useGetEvents } from '../hooks/use-get-events'
+import { getEventsQueryKey, useGetEvents } from '../hooks/use-get-events'
 
 function EventsPage() {
   const queryClient = useQueryClient()
@@ -106,7 +106,7 @@ function EventsPage() {
                           onClick={() => {
                             dispatchTryDelete(data.title, async () => {
                               await deleteEvent.mutateAsync(event.id)
-                              await queryClient.invalidateQueries(['events'])
+                              await queryClient.invalidateQueries(getEventsQueryKey)
                             })
                           }}
                           pos="relative"

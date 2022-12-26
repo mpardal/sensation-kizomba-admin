@@ -10,12 +10,13 @@ import {
 } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useFormik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import EventForm from '../components/events/event-form'
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
 import { useEditEvent } from '../hooks/use-edit-event'
 import { useGetEvent } from '../hooks/use-get-event'
+import { getEventsQueryKey } from '../hooks/use-get-events'
 import { AppEvent } from '../types/app-event'
 import { EventFormZod, EventFormZodValues } from '../utils/form/event-form-zod'
 import { toInputTypeDate } from '../utils/form/input-date'
@@ -79,7 +80,7 @@ function EditEventPage() {
         form: EventFormZod.parse(values),
         event: getEventData as AppEvent,
       })
-      await queryClient.invalidateQueries(['events'], {
+      await queryClient.invalidateQueries(getEventsQueryKey, {
         type: 'inactive',
       })
       navigate('/events')
@@ -89,6 +90,12 @@ function EditEventPage() {
     validateOnBlur: true,
     validationSchema: toFormikValidationSchema(EventFormZod),
   })
+
+  useEffect(() => {
+    if (getEvent.isError) {
+      navigate('/events')
+    }
+  }, [getEvent.isError])
 
   if (getEvent.isFetched && !getEvent.isSuccess) {
     return (
