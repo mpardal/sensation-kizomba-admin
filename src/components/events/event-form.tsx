@@ -14,7 +14,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
-import { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren } from 'react'
 import { EventFormZodValues } from '../../utils/form/event-form-zod'
 import EventEditor from './editor/event-editor'
 import ImagesFormControl from './images-form-control'
@@ -39,27 +39,6 @@ function EventForm({
   setFieldValue: (field: string, value: unknown) => void
   errors: UseFormikResult['errors']
 }>) {
-  useEffect(() => {
-    if (values.dateTo !== undefined) {
-      setFieldValue('type', 'weekly')
-    }
-  }, [])
-
-  useEffect(() => {
-    if (values.dateFrom !== '') {
-      if (values.dateTo === undefined) {
-        return
-      }
-
-      const from = new Date(values.dateFrom)
-      const to = new Date(values.dateTo)
-
-      if (from > to) {
-        setFieldValue('dateTo', '')
-      }
-    }
-  }, [values.dateFrom, values.dateTo])
-
   return (
     <>
       <VStack py={4} alignItems="stretch">

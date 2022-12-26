@@ -1,4 +1,4 @@
-import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query'
+import { useMutation, UseMutationOptions } from '@tanstack/react-query'
 import { updateDoc, collection, CollectionReference, Timestamp, doc } from 'firebase/firestore'
 import { UploadTaskSnapshot, deleteObject, ref } from 'firebase/storage'
 import { database, storage } from '../config/firebase'
@@ -13,7 +13,6 @@ export function useEditEvent(
     ...options
   }: UseMutationOptions<void, unknown, { form: EventFormZodValues; event: AppEvent }> = {}
 ) {
-  const queryClient = useQueryClient()
   const uploadImage = useUploadImage()
 
   return useMutation({
@@ -64,9 +63,6 @@ export function useEditEvent(
           ),
         ],
       })
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(['events'])
     },
     ...options,
   })

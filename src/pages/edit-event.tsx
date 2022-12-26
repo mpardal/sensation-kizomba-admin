@@ -8,6 +8,7 @@ import {
   Heading,
   HStack,
 } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useFormik } from 'formik'
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -21,6 +22,7 @@ import { toInputTypeDate } from '../utils/form/input-date'
 import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
 
 function EditEventPage() {
+  const queryClient = useQueryClient()
   const { id } = useParams<{ id: string }>()
   const [shouldDisplayForm, setShouldDisplayForm] = useState(false)
   const getEvent = useGetEvent(id as string, {
@@ -76,6 +78,9 @@ function EditEventPage() {
       await editEvent.mutateAsync({
         form: EventFormZod.parse(values),
         event: getEventData as AppEvent,
+      })
+      await queryClient.invalidateQueries(['events'], {
+        type: 'inactive',
       })
       navigate('/events')
     },
