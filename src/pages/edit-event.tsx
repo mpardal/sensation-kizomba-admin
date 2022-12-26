@@ -9,6 +9,7 @@ import {
   HStack,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
+import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import EventForm from '../components/events/event-form'
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
@@ -20,6 +21,7 @@ import { toFormikValidationSchema } from '../utils/zod-formik-adapter'
 
 function EditEventPage() {
   const { id } = useParams<{ id: string }>()
+  const [shouldDisplayForm, setShouldDisplayForm] = useState(false)
   const getEvent = useGetEvent(id as string, {
     cacheTime: 0,
     onSuccess: (event) => {
@@ -36,6 +38,7 @@ function EditEventPage() {
         weezeventUrl: data.weezeventUrl,
         images: data.images,
       })
+      setShouldDisplayForm(true)
     },
   })
   const editEvent = useEditEvent(id as string)
@@ -139,7 +142,7 @@ function EditEventPage() {
           </HStack>
         </Flex>
 
-        {!getEvent.isLoading && (
+        {getEvent.isSuccess && shouldDisplayForm && (
           <EventForm
             handleChange={handleChange}
             handleBlur={handleBlur}
