@@ -9,6 +9,8 @@ import {
 import { database } from '../config/firebase'
 import { AppEvent } from '../types/app-event'
 
+export type GetEventResultType = QueryDocumentSnapshot<AppEvent>
+
 export function getEventQueryKey(id: string) {
   return ['event', id]
 }

@@ -1,9 +1,6 @@
-import { EditIcon } from '@chakra-ui/icons'
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Button,
   Container,
   Flex,
@@ -20,13 +17,25 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import DeleteEventAlertDialog from '../components/events/delete-event-alert-dialog'
 import EventPageBreadcrumb from '../components/events/event-page-breadcrumb'
+import { useDeleteEvent } from '../hooks/use-delete-event'
+import { useDeleteEventAlertDialog } from '../hooks/use-delete-event-alert-dialog'
 import { useGetEvents } from '../hooks/use-get-events'
 
 function EventsPage() {
+  const queryClient = useQueryClient()
   const eventQuery = useGetEvents()
+  const deleteEvent = useDeleteEvent()
+  const {
+    state: deleteEventDialog,
+    dispatchTryDelete,
+    dispatchDelete,
+    dispatchClose,
+  } = useDeleteEventAlertDialog()
 
   return (
     <Container maxW="8xl">
@@ -88,6 +97,21 @@ function EventsPage() {
                       //transform="scale(1)" // Hack to make `<Tr>` position relative
                     >
                       <Td aria-label="actions sur les événements" textAlign="center">
+                        <IconButton
+                          aria-label="supprimer l'événement"
+                          icon={<DeleteIcon />}
+                          size="xs"
+                          role="alertdialog"
+                          colorScheme="red"
+                          onClick={() => {
+                            dispatchTryDelete(data.title, async () => {
+                              await deleteEvent.mutateAsync(event.id)
+                              await queryClient.invalidateQueries(['events'])
+                            })
+                          }}
+                          pos="relative"
+                          zIndex={1}
+                        />
                         <LinkOverlay to={`/events/${event.id}/edit`} as={Link}>
                           <IconButton
                             size="xs"
@@ -97,6 +121,7 @@ function EventsPage() {
                             icon={<EditIcon />}
                             colorScheme="gray"
                             bg="gray.600 "
+                            ml={2}
                           />
                         </LinkOverlay>
                       </Td>
@@ -118,6 +143,14 @@ function EventsPage() {
           </TableContainer>
         )}
       </Box>
+
+      <DeleteEventAlertDialog
+        title={deleteEventDialog.title ?? 'événement'}
+        isOpen={deleteEventDialog.isOpen}
+        onClose={dispatchClose}
+        onConfirm={dispatchDelete}
+        isLoading={deleteEvent.isLoading}
+      />
     </Container>
   )
 }

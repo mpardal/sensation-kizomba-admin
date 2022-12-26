@@ -10,11 +10,15 @@ import {
 import { database } from '../config/firebase'
 import { AppEvent } from '../types/app-event'
 
+export type GetEventsResultType = QuerySnapshot<AppEvent>
+
+export const getEventsQueryKey = ['events'] as const
+
 export function useGetEvents(
-  options: UseQueryOptions<QuerySnapshot<AppEvent>> = {}
-): UseQueryResult<QuerySnapshot<AppEvent>> {
+  options: UseQueryOptions<GetEventsResultType> = {}
+): UseQueryResult<GetEventsResultType> {
   return useQuery({
-    queryKey: ['events'],
+    queryKey: getEventsQueryKey,
     queryFn: () => {
       const col = collection(database, 'events') as CollectionReference<AppEvent>
       const eventsQuery = query<AppEvent>(col, orderBy('date.from', 'desc'))
