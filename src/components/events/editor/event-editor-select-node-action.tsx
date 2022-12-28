@@ -23,7 +23,7 @@ function EventEditorSelectNodeAction({ editor }: { editor: Editor | null }) {
   return (
     <Box>
       <Menu isLazy>
-        <MenuButton as={Button} size="sm" rightIcon={<ChevronDownIcon />}>
+        <MenuButton as={Button} size="sm" rightIcon={<ChevronDownIcon />} minW="8rem">
           {activeNode}
         </MenuButton>
         <MenuList zIndex={3} maxH="30vh" overflowY="auto" minH="120px">

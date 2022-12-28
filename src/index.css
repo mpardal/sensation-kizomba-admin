@@ -83,3 +83,8 @@
 .ProseMirror .ProseMirror-selectednode {
   border: 1px solid var(--chakra-colors-gray-600);
 }
+
+.ProseMirror {
+  height: 600px;
+  overflow: auto;
+}

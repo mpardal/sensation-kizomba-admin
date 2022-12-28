@@ -124,7 +124,11 @@ function EditEventPage() {
         >
           <EventPageBreadcrumb>
             <BreadcrumbItem>
-              <BreadcrumbLink as={Link} to="/events/:id/edit" whiteSpace="nowrap">
+              <BreadcrumbLink
+                as={Link}
+                to={`/events/${getEvent.data?.id}/edit`}
+                whiteSpace="nowrap"
+              >
                 <Box as="span" display={['none', null, 'inline']}>
                   Modification
                 </Box>{' '}
