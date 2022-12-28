@@ -35,8 +35,8 @@ function EventEditorUndoRedoActions({ editor }: { editor: Editor | null }) {
           // update link
           editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
         }}
-        aria-label="rétablir les modifications"
-        title="Rétablir les modifications"
+        aria-label="lien"
+        title="lien"
         icon={editor?.isActive('link') ?? true ? <MdLinkOff /> : <MdLink />}
       />
     </>
