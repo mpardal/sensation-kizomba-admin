@@ -4,8 +4,10 @@ import { TextStyle } from '@tiptap/extension-text-style'
 import { Underline } from '@tiptap/extension-underline'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Image } from '@tiptap/extension-image'
+import { Link as LinkExtension } from '@tiptap/extension-link'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import EventEditorAddLinkAction from './event-editor-add-link-action'
 import EventEditorBlockActions from './event-editor-block-actions'
 import EventEditorImageAction from './event-editor-image-action'
 import EventEditorLineActions from './event-editor-line-actions'
@@ -34,6 +36,9 @@ function EventEditor({
       }),
       Image.configure({
         inline: true,
+      }),
+      LinkExtension.configure({
+        openOnClick: false,
       }),
     ],
     content: defaultValue,
@@ -76,6 +81,7 @@ function EventEditor({
         <WrapItem>
           <HStack>
             <EventEditorTextDecorationActions editor={editor} />
+            <EventEditorAddLinkAction editor={editor} />
           </HStack>
         </WrapItem>
         <WrapItem>

@@ -20,6 +20,7 @@
     "@tanstack/react-query": "^4.14.5",
     "@tiptap/extension-color": "2.0.0-beta.202",
     "@tiptap/extension-image": "2.0.0-beta.202",
+    "@tiptap/extension-link": "2.0.0-beta.209",
     "@tiptap/extension-text-align": "2.0.0-beta.202",
     "@tiptap/extension-text-style": "2.0.0-beta.202",
     "@tiptap/extension-underline": "2.0.0-beta.202",
@@ -61,7 +62,9 @@
       "ignoreMissing": [
         "@babel/core",
         "@chakra-ui/system",
-        "@tiptap/core"
+        "@tiptap/core",
+        "prosemirror-model",
+        "prosemirror-state"
       ]
     }
   }

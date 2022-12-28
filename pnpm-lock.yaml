@@ -12,6 +12,7 @@ specifiers:
   '@tanstack/react-query-devtools': ^4.14.5
   '@tiptap/extension-color': 2.0.0-beta.202
   '@tiptap/extension-image': 2.0.0-beta.202
+  '@tiptap/extension-link': 2.0.0-beta.209
   '@tiptap/extension-text-align': 2.0.0-beta.202
   '@tiptap/extension-text-style': 2.0.0-beta.202
   '@tiptap/extension-underline': 2.0.0-beta.202
@@ -56,6 +57,7 @@ dependencies:
   '@tanstack/react-query': 4.14.5_biqbaboplfbrettd7655fr4n2y
   '@tiptap/extension-color': 2.0.0-beta.202_jjdxccddqontqlt5zi3tlfeahu
   '@tiptap/extension-image': 2.0.0-beta.202
+  '@tiptap/extension-link': 2.0.0-beta.209
   '@tiptap/extension-text-align': 2.0.0-beta.202
   '@tiptap/extension-text-style': 2.0.0-beta.202
   '@tiptap/extension-underline': 2.0.0-beta.202
@@ -2615,6 +2617,19 @@ packages:
       '@tiptap/core': 2.0.0-beta.202
     dev: false
 
+  /@tiptap/extension-link/2.0.0-beta.209:
+    resolution: {integrity: sha512-X+iPnKWTb8nuZ7xieemPxZOiCQiaQw4z3RVJ7Hz4/T+ujxfxu7MJhBzjyw9htGPmUijyN4zt0NPjZ089yMzAxQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.193
+      prosemirror-model: ^1.18.1
+      prosemirror-state: ^1.4.1
+    peerDependenciesMeta:
+      '@tiptap/core':
+        optional: true
+    dependencies:
+      linkifyjs: 3.0.5
+    dev: false
+
   /@tiptap/extension-list-item/2.0.0-beta.202_fosglmwb3u6jhi6bbjmnlbdsbu:
     resolution: {integrity: sha512-15yAsO+CCM8ievdX4oxg8kMBVFqhzVAw7pU6E8KL76kIwWCIIyVW6hU3VZdglyBVnAG0ws5/DaZ4VRFtVPRDvg==}
     peerDependencies:
@@ -3801,6 +3816,10 @@ packages:
 
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+    dev: false
+
+  /linkifyjs/3.0.5:
+    resolution: {integrity: sha512-1Y9XQH65eQKA9p2xtk+zxvnTeQBG7rdAXSkUG97DmuI/Xhji9uaUzaWxRj6rf9YC0v8KKHkxav7tnLX82Sz5Fg==}
     dev: false
 
   /lint-staged/13.1.0:

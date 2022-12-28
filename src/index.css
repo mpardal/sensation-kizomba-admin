@@ -80,6 +80,11 @@
 }
 
 /*noinspection CssUnresolvedCustomProperty*/
+.ProseMirror a {
+  text-decoration: underline;
+}
+
+/*noinspection CssUnresolvedCustomProperty*/
 .ProseMirror .ProseMirror-selectednode {
   border: 1px solid var(--chakra-colors-gray-600);
 }
