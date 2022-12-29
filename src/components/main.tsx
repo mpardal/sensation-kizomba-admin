@@ -1,17 +1,17 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Box, Flex } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
-import { useAuth } from '../hooks/auth/use-auth'
 import Aside from './aside'
 import Header from './header'
 
 function Main() {
-  const { isLogged } = useAuth()
+  const { isAuthenticated } = useAuth0()
 
   return (
     <main>
       <Header />
       <Flex as="section" flexDirection={['column', null, null, 'row']}>
-        {isLogged && <Aside />}
+        {isAuthenticated && <Aside />}
         <Box as="main" flexGrow={1} overflowX="auto">
           <Outlet />
         </Box>
