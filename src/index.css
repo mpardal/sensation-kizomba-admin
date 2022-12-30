@@ -17,6 +17,11 @@
 }
 
 /*noinspection CssUnresolvedCustomProperty*/
+.ProseMirror img {
+  display: inline;
+}
+
+/*noinspection CssUnresolvedCustomProperty*/
 .ProseMirror h1 {
   font-size: var(--chakra-fontSizes-7xl);
 }
