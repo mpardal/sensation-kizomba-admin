@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Container,
+  Fade,
   Flex,
   Heading,
   HStack,
@@ -13,6 +14,7 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -69,11 +71,15 @@ function EventsPage() {
       </Flex>
 
       <Box as="section">
-        {eventQuery.isLoading && <span>Chargement des événements...</span>}
+        {eventQuery.isLoading && (
+          <Flex py={6} h="xs" alignItems="center" justifyContent="center">
+            <Text fontSize="2xl">Chargement des événements...</Text>
+          </Flex>
+        )}
 
         {eventQuery.isError && <code>Error: {JSON.stringify(eventQuery.error, undefined, 2)}</code>}
 
-        {eventQuery.isSuccess && (
+        <Fade in={!eventQuery.isLoading}>
           <TableContainer>
             <Table variant="simple">
               <Thead>
@@ -86,62 +92,63 @@ function EventsPage() {
                 </Tr>
               </Thead>
               <Tbody>
-                {eventQuery.data.docs.map((event) => {
-                  const data = event.data()
+                {eventQuery.data &&
+                  eventQuery.data.docs.map((event) => {
+                    const data = event.data()
 
-                  return (
-                    <LinkBox
-                      as={Tr}
-                      key={event.id}
-                      aria-label={data.title}
-                      //transform="scale(1)" // Hack to make `<Tr>` position relative
-                    >
-                      <Td aria-label="actions sur les événements" textAlign="center">
-                        <IconButton
-                          aria-label="supprimer l'événement"
-                          icon={<DeleteIcon />}
-                          size="xs"
-                          role="alertdialog"
-                          colorScheme="red"
-                          onClick={() => {
-                            dispatchTryDelete(data.title, async () => {
-                              await deleteEvent.mutateAsync(event.id)
-                              await queryClient.invalidateQueries(getEventsQueryKey)
-                            })
-                          }}
-                          pos="relative"
-                          zIndex={1}
-                        />
-                        <LinkOverlay to={`/events/${event.id}/edit`} as={Link}>
+                    return (
+                      <LinkBox
+                        as={Tr}
+                        key={event.id}
+                        aria-label={data.title}
+                        //transform="scale(1)" // Hack to make `<Tr>` position relative
+                      >
+                        <Td aria-label="actions sur les événements" textAlign="center">
                           <IconButton
+                            aria-label="supprimer l'événement"
+                            icon={<DeleteIcon />}
                             size="xs"
-                            as="span"
-                            aria-label="éditer l'événement"
-                            role="navigation"
-                            icon={<EditIcon />}
-                            colorScheme="gray"
-                            bg="gray.600 "
-                            ml={2}
+                            role="alertdialog"
+                            colorScheme="red"
+                            onClick={() => {
+                              dispatchTryDelete(data.title, async () => {
+                                await deleteEvent.mutateAsync(event.id)
+                                await queryClient.invalidateQueries(getEventsQueryKey)
+                              })
+                            }}
+                            pos="relative"
+                            zIndex={1}
                           />
-                        </LinkOverlay>
-                      </Td>
-                      <Td aria-label="nom de l'événement">{data.title}</Td>
-                      <Td aria-label="date de début de l'événement">
-                        {dayjs(data.date.from.toDate()).format('DD/MM/YYYY HH:mm')}
-                      </Td>
-                      <Td aria-label="date de fin de l'événement">
-                        {data.date.to
-                          ? dayjs(data.date.to.toDate()).format('DD/MM/YYYY HH:mm')
-                          : 'N/A'}
-                      </Td>
-                      <Td aria-label="type d'événement">{data.type}</Td>
-                    </LinkBox>
-                  )
-                })}
+                          <LinkOverlay to={`/events/${event.id}/edit`} as={Link}>
+                            <IconButton
+                              size="xs"
+                              as="span"
+                              aria-label="éditer l'événement"
+                              role="navigation"
+                              icon={<EditIcon />}
+                              colorScheme="gray"
+                              bg="gray.600 "
+                              ml={2}
+                            />
+                          </LinkOverlay>
+                        </Td>
+                        <Td aria-label="nom de l'événement">{data.title}</Td>
+                        <Td aria-label="date de début de l'événement">
+                          {dayjs(data.date.from.toDate()).format('DD/MM/YYYY HH:mm')}
+                        </Td>
+                        <Td aria-label="date de fin de l'événement">
+                          {data.date.to
+                            ? dayjs(data.date.to.toDate()).format('DD/MM/YYYY HH:mm')
+                            : 'N/A'}
+                        </Td>
+                        <Td aria-label="type d'événement">{data.type}</Td>
+                      </LinkBox>
+                    )
+                  })}
               </Tbody>
             </Table>
           </TableContainer>
-        )}
+        </Fade>
       </Box>
 
       <DeleteEventAlertDialog
