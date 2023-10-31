@@ -152,7 +152,7 @@ function EventForm({
               <option value="nantes">Nantes</option>
               <option value="bordeaux">Bordeaux</option>
               <option value="le-mans">Le Mans</option>
-              <option value="orleans">Orléans</option>
+              <option value="tours">Tours</option>
               <option value="rennes">Rennes</option>
             </Select>
           </InputGroup>
