@@ -4,7 +4,7 @@ import { AppEventCity } from '../../types/app-event-city'
 
 const eventTypes = ['weekly', 'monthly', 'quarterly', 'yearly'] as AppEventType[]
 
-const eventCities = ['nantes', 'bordeaux', 'le-mans', 'tours', 'rennes'] as AppEventCity[]
+const eventCities = ['angers', 'bordeaux', 'le-mans', 'nantes', 'rennes'] as AppEventCity[]
 
 export const EventFormZod = z
   .object({

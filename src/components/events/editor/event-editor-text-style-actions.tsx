@@ -1,6 +1,6 @@
 import { Editor } from '@tiptap/react'
 import { useRef } from 'react'
-import { MdFormatColorReset, MdFormatColorText } from 'react-icons/all'
+import { MdFormatColorReset, MdFormatColorText } from 'react-icons/md'
 import { isLightColorHex } from '../../../utils/color'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 

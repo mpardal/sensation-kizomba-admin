@@ -4,7 +4,7 @@ import {
   MdFormatItalic,
   MdFormatStrikethrough,
   MdFormatUnderlined,
-} from 'react-icons/all'
+} from 'react-icons/md'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
 function EventEditorTextDecorationActions({ editor }: { editor: Editor | null }) {

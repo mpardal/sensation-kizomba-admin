@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/react'
-import { MdCode, MdFormatListNumbered, MdFormatQuote, MdList } from 'react-icons/all'
+import { MdCode, MdFormatListNumbered, MdFormatQuote, MdList } from 'react-icons/md'
 import EventEditorActionIconButton from './event-editor-action-icon-button'
 
 function EventEditorBlockActions({ editor }: { editor: Editor | null }) {
